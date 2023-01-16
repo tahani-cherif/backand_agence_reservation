@@ -8,7 +8,7 @@ module.exports=(Sequelize,DataTypes)=>{
             allowNull:false,
             validate:{
             notNull: {
-                msg: 'Please enter your matricule'
+                msg: 'Please enter your name evenement'
               }}
         },
         description:{
@@ -16,7 +16,7 @@ module.exports=(Sequelize,DataTypes)=>{
             allowNull:false,
             validate:{
                 notNull: {
-                    msg: 'Please enter your matricule'
+                    msg: 'Please enter your description'
                   }}
         },
         nb_place:{
@@ -27,7 +27,7 @@ module.exports=(Sequelize,DataTypes)=>{
                msg: "Must be an integer number of pennies"
              },
              notNull: {
-               msg: 'Please enter your adress'
+               msg: 'Please enter your nombre place'
              }
            }
         },
@@ -39,7 +39,7 @@ module.exports=(Sequelize,DataTypes)=>{
               msg: "Must be an float number of pennies"
             },
             notNull: {
-              msg: 'Please enter your adress'
+              msg: 'Please enter your price evenement'
             }
           }
          },

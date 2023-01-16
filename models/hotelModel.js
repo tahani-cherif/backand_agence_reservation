@@ -7,8 +7,8 @@ module.exports=(Sequelize,DataTypes)=>{
         type:DataTypes.STRING,
         allowNull:false,
         validate:{
-        notNull: {
-          msg: 'Please enter your name'
+          notNull: {
+            msg: 'Please enter your name'
         }}
        },
        e_mail:{
@@ -34,7 +34,7 @@ module.exports=(Sequelize,DataTypes)=>{
             msg: "Must be an integer number of pennies"
           },
           notNull: {
-            msg: 'Please enter your adress'
+            msg: 'Please enter your nb star'
           }
         }
        },
