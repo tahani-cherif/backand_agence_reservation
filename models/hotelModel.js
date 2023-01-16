@@ -6,9 +6,10 @@ module.exports=(Sequelize,DataTypes)=>{
        nom_hotel : {
         type:DataTypes.STRING,
         allowNull:false,
+        validate:{
         notNull: {
           msg: 'Please enter your name'
-        }
+        }}
        },
        e_mail:{
         type:DataTypes.STRING,
@@ -105,9 +106,6 @@ module.exports=(Sequelize,DataTypes)=>{
         type:DataTypes.DATE,
         allowNull:false,
         validate:{
-          isDate: {
-            msg: "Must be an date of pennies"
-          },
           notNull: {
             msg: 'Please enter your date before'
           }
@@ -117,9 +115,6 @@ module.exports=(Sequelize,DataTypes)=>{
         type:DataTypes.DATE,
         allowNull:false,
         validate:{
-          isDate: {
-            msg: "Must be an date of pennies"
-          },
           notNull: {
             msg: 'Please enter your date end'
           }
