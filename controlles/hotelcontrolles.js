@@ -19,9 +19,16 @@ const posthotels=async(req,res)=>
     res.status(200).send(hotel)
     console.log(res)
 }
-
+// return hotel by id
+const gethotel=async(req,res)=>
+{
+   let id=req.params.id
+   const hotel=await Hotel.findOne({where:{id:id}})
+   res.status(200).send(hotel)
+}
 
 module.exports={
     getallhotel,
-    posthotels
+    posthotels,
+    gethotel
  }
