@@ -13,8 +13,10 @@ app.use(cors());
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: true }))
-const router = require('./routes/hotelroute.js')
-app.use('/api/hotel', router)
+const routerhotel = require('./routes/hotelroute.js')
+const routerbus= require('./routes/busroute.js')
+app.use('/api/hotel', routerhotel)
+app.use('/api/bus', routerbus)
 //test
 app.get('/',(req,res)=>{
     res.json({message:'hello from api'})
