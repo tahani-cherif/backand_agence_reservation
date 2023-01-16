@@ -22,6 +22,14 @@ module.exports=(Sequelize,DataTypes)=>{
         }
            }
        },
+       numero_telephone : {
+        type:DataTypes.BIGINT,
+        allowNull:false,
+        validate:{
+          notNull: {
+            msg: 'Please enter your phone number'
+        }}
+       },
        adresse:{
         type:DataTypes.STRING,
         allowNull:false,
