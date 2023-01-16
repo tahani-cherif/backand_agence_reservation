@@ -15,8 +15,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 const routerhotel = require('./routes/hotelroute.js')
 const routerbus= require('./routes/busroute.js')
+const routerevenement= require('./routes/evenementroute.js')
 app.use('/api/hotel', routerhotel)
 app.use('/api/bus', routerbus)
+app.use('/api/evenement', routerevenement)
 //test
 app.get('/',(req,res)=>{
     res.json({message:'hello from api'})

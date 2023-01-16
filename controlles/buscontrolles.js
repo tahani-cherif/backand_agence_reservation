@@ -1,14 +1,14 @@
 const db=require('../models')
 const Bus=db.bus
 
-//return tous les hotel ajouter a partire admin
+//return tous les bus ajouter a partire admin
 const getallbus=async(req,res)=>
 {   
      let bus= await Bus.findAll()
      res.status(200).send(bus)
 }
 
-// ajouter hotel a partire admin
+// ajouter bus a partire admin
 
 const postbus=async(req,res)=>
 {
@@ -17,7 +17,7 @@ const postbus=async(req,res)=>
     res.status(200).send(bus)
     console.log(res)
 }
-// return hotel by id
+// return bus by id
 const getbus=async(req,res)=>
 {
    let id=req.params.id

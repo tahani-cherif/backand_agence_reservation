@@ -30,6 +30,7 @@ DB.sequelize = db
 
 DB.hotel = require('./hotelModel.js')(db, DataTypes)
 DB.bus = require('./busModel.js')(db, DataTypes)
+DB.evenement = require('./evenementModel.js')(db, DataTypes)
 DB.sequelize.sync({ force: false })
 .then(() => {
     console.log('yes re-sync done!')
