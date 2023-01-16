@@ -1,7 +1,7 @@
-const hotelcontroller=require("../controlles/buscontrolles")
+const buscontroller=require("../controlles/buscontrolles")
 const router=require("express").Router()
 
-router.get('/getallbus',hotelcontroller.getallbus)
-router.get('/getonebus/:id',hotelcontroller.getbus)
-router.post('/addbus',hotelcontroller.postbus)
+router.get('/getallbus',buscontroller.getallbus)
+router.get('/getonebus/:id',buscontroller.getbus)
+router.post('/addbus',buscontroller.postbus)
 module.exports=router
