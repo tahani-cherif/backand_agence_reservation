@@ -8,4 +8,5 @@ router.get('/getonehotel/:id',hotelcontroller.gethotel)
 router.post('/addhotel',hotelcontroller.posthotels)
 router.put('/updatehotel/:id',hotelcontroller.updatehotel)
 router.delete('/deletehotel/:id',hotelcontroller.deletehotel)
+router.delete('/deletehotels',hotelcontroller.deletehotels)
 module.exports=router
