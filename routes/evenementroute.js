@@ -4,4 +4,6 @@ const router=require("express").Router()
 router.get('/getallevenement',evenementcontroller.getallevenement)
 router.get('/getoneevenement/:id',evenementcontroller.getevenement)
 router.post('/addevenement',evenementcontroller.postevenement)
+router.put('/updateevenement/:id',evenementcontroller.updateevenement)
+router.delete('/deleteevenement/:id',evenementcontroller.deleteevenement)
 module.exports=router

@@ -25,8 +25,45 @@ const getbus=async(req,res)=>
    res.status(200).send(bus)
 }
 
+
+// update bus par id
+
+const updatebus=async(req,res)=>{
+    let id=req.params.id
+    const bus=await Bus.findOne({where:{id:id}})
+    if(bus)
+    {
+        await Bus.update(req.body,{where:{id:id}})
+        const bus=await Bus.findOne({where:{id:id}})
+        res.status(200).send(bus)
+    }else
+    {
+        res.status(404).send("Hotel not found")
+    }
+     
+}
+
+// delete bus par id
+
+const deletebus=async(req,res)=>{
+    let id=req.params.id
+    const bus=await Bus.findOne({where:{id:id}})
+    if(bus)
+    {
+        await Bus.destroy({where:{id:id}})
+        res.status(200).send("hotel deleted")
+    }else{
+        res.status(404).send("Hotel not found")
+    }
+
+}
+
+
 module.exports={
     getallbus,
     postbus,
-    getbus
+    getbus,
+    updatebus,
+    deletebus
+ 
  }
