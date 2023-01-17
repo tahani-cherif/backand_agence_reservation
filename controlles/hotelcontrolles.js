@@ -27,8 +27,42 @@ const gethotel=async(req,res)=>
    res.status(200).send(hotel)
 }
 
+// update hotel par id
+
+const updatehotel=async(req,res)=>{
+    let id=req.params.id
+    const hotel=await Hotel.findOne({where:{id:id}})
+    if(hotel)
+    {
+        await Hotel.update(req.body,{where:{id:id}})
+        const hotel=await Hotel.findOne({where:{id:id}})
+        res.status(200).send(hotel)
+    }else
+    {
+        res.status(404).send("Hotel not found")
+    }
+     
+}
+
+// delete hotel par id
+
+const deletehotel=async(req,res)=>{
+    let id=req.params.id
+    const hotel=await Hotel.findOne({where:{id:id}})
+    if(hotel)
+    {
+        await Hotel.destroy({where:{id:id}})
+        res.status(200).send("hotel deleted")
+    }else{
+        res.status(404).send("Hotel not found")
+    }
+
+}
+
 module.exports={
     getallhotel,
     posthotels,
-    gethotel
+    gethotel,
+    updatehotel,
+    deletehotel
  }
