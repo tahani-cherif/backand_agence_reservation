@@ -42,6 +42,22 @@ const updatebus=async(req,res)=>{
     }
      
 }
+const updatebusnbplacereserver=async(req,res)=>{
+    let id=req.params.id
+    let bus=await Bus.findOne({where:{id:id}})
+    
+    if(bus)
+    {   bus.nb_place_reserver=req.body.nouveau_nb_place
+        const x=bus.dataValues
+        const update=await Bus.update(x,{where:{id:id}})
+         const data=await Bus.findOne({where:{id:id}})
+        res.status(200).send(data)
+    }else
+    {
+        res.status(404).send("Hotel not found")
+    }
+     
+}
 
 // delete bus par id
 
@@ -89,6 +105,7 @@ module.exports={
     getbus,
     updatebus,
     deletebus,
-    deletebuss
+    deletebuss,
+    updatebusnbplacereserver
  
  }
