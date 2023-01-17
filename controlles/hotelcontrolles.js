@@ -27,6 +27,7 @@ const gethotel=async(req,res)=>
    res.status(200).send(hotel)
 }
 
+
 // update hotel par id
 
 const updatehotel=async(req,res)=>{
@@ -59,10 +60,37 @@ const deletehotel=async(req,res)=>{
 
 }
 
+// delete plusieur hotel par id
+
+const deletehotels=async(req,res)=>{
+    let tabId=req.body
+    let tabverif=[]
+    let message
+    tabId.map(async(item)=>{
+        const hotel=await Hotel.findOne({where:{id:item}})
+        if(hotel)
+        {   
+            await Hotel.destroy({where:{id:item}})
+             message="hotel deleted "+item
+             tabverif.push(message)
+        console.log("test")
+        }else{
+         message="Hotel not found "+item
+        tabverif.push(message)
+        }
+        console.log(tabverif)
+    })
+    setTimeout(() => {
+        res.send(tabverif)
+      }, "1000")
+
+}
+
 module.exports={
     getallhotel,
     posthotels,
     gethotel,
     updatehotel,
-    deletehotel
+    deletehotel,
+    deletehotels
  }

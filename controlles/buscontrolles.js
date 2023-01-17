@@ -58,12 +58,37 @@ const deletebus=async(req,res)=>{
 
 }
 
+// delete plusieur bus par id
+
+const deletebuss=async(req,res)=>{
+    let tabId=req.body
+    let tabverif=[]
+    let message
+    tabId.map(async(item)=>{
+        const bus=await Bus.findOne({where:{id:item}})
+        if(bus)
+        {   
+            await Bus.destroy({where:{id:item}})
+             message="bus deleted "+item
+             tabverif.push(message)
+        }else{
+         message="bus not found "+item
+        tabverif.push(message)
+        }
+    })
+    setTimeout(() => {
+        res.send(tabverif)
+      }, "1000")
+
+}
+
 
 module.exports={
     getallbus,
     postbus,
     getbus,
     updatebus,
-    deletebus
+    deletebus,
+    deletebuss
  
  }
