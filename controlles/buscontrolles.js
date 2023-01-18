@@ -42,9 +42,12 @@ const updatebus=async(req,res)=>{
     }
      
 }
+
+// update sur nombrepe place reserver d'une bus
+
 const updatebusnbplacereserver=async(req,res)=>{
     let id=req.params.id
-    let bus=await Bus.findOne({where:{id:id}})
+    let bus=await Bus.findOne({where:{id:id}}) // recherche une bus par id
     
     if(bus)
     {   bus.nb_place_reserver=req.body.nouveau_nb_place

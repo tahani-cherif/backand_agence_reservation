@@ -16,7 +16,7 @@ const reservation_buspost=async(req,res)=>
 {   
     const body=req.body
     let data=await axios.get(`http://localhost:8080/api/bus/getonebus/${body.busId}`).then(res => res.data)// get data de bus
-    if(data.nb_place_reserver+body.nb_place<data.nb_place)
+    if(data.nb_place_reserver+body.nb_place<data.nb_place) // test sur nombre de place disponible
     {   
         let nouv_nb_place_reserver={nouveau_nb_place:data.nb_place_reserver+body.nb_place};
        await axios.put(`http://localhost:8080/api/bus/updatebusnbplacereserver/${body.busId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
@@ -54,12 +54,12 @@ const updatereservationbus=async(req,res)=>{
         let datesys= new Date();
         let date=datesys-reservation.createdAt
         date=Math.floor(date/ (1000 * 86400 * 2) ) ;
-         if(date<1){
-            const data=await axios.get(`http://localhost:8080/api/bus/getonebus/${reservation.busId}`).then(res => res.data)
+         if(date<1){ // test sur time ne depase pas 48h 
+            const data=await axios.get(`http://localhost:8080/api/bus/getonebus/${reservation.busId}`).then(res => res.data) // get une bus by id
             const nb_total=Number(data.nb_place_reserver)+Number(req.body.nb_place)
-            if(nb_total<data.nb_place)
+            if(nb_total<data.nb_place) // test sur nombre de place disponible
             {   
-                let nouv_nb_place_reserver={nouveau_nb_place:data.nb_place_reserver+req.body.nb_place};
+                let nouv_nb_place_reserver={nouveau_nb_place:data.nb_place_reserver+req.body.nb_place}; // nouveau nombre de place
                await axios.put(`http://localhost:8080/api/bus/updatebusnbplacereserver/${req.body.busId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
                 let reservationupdate=await Reservation_bus.update(req.body,{where:{id:id}})  // update une reservation bus
                 res.status(200).send(reservation)
@@ -85,13 +85,13 @@ const deletereservationbus=async(req,res) => {
         let datesys= new Date();
         let date=datesys-reservation.createdAt
         date=Math.floor(date/ (1000 * 86400 * 2) ) ;
-         if(date<1){
-            const data=await axios.get(`http://localhost:8080/api/bus/getonebus/${reservation.busId}`).then(res => res.data)
-            const nb_total=Number(data.nb_place_reserver)-Number(reservation.nb_place)
+         if(date<1){ // test sur time ne depase pas 48h 
+            const data=await axios.get(`http://localhost:8080/api/bus/getonebus/${reservation.busId}`).then(res => res.data) // get une bus
+            const nb_total=Number(data.nb_place_reserver)-Number(reservation.nb_place) // diminuer nombre de place reserver
             let nouv_nb_place_reserver={nouveau_nb_place: nb_total};
-            await axios.put(`http://localhost:8080/api/bus/updatebusnbplacereserver/${data.id}`,nouv_nb_place_reserver)
-            await Reservation_bus.destroy({where: {id:id}})
-            res.status(200).send("reservation deleted")
+            await axios.put(`http://localhost:8080/api/bus/updatebusnbplacereserver/${data.id}`,nouv_nb_place_reserver) // update sur une bus
+            await Reservation_bus.destroy({where: {id:id}}) // delete une reservation
+            res.status(200).send("reservation deleted") 
             }
           else{
              res.status(200).send("aucune l'accès de annule reservation apres 48h")
