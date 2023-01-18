@@ -21,7 +21,7 @@ const postevenement=async(req,res)=>
 // return evenement by id
 const getevenement=async(req,res)=>
 {
-   let id=req.params.id
+   let id=req.params?.id || req
    const evenement=await Evenement.findOne({where:{id:id}})
    res.status(200).send(evenement)
 }
@@ -43,6 +43,24 @@ const updateevenement=async(req,res)=>{
      
 }
 
+// update sur nombre de place reserver d'une evenement
+
+const updateevenementsnbplacereserver=async(req,res)=>{
+    let id=req.params.id
+    let evenement=await Evenement.findOne({where:{id:id}}) // recherche une evenement par id
+    
+    if(evenement)
+    {   evenement.nb_place_reserver=req.body.nouveau_nb_place
+        const x=evenement.dataValues
+        await Evenement.update(x,{where:{id:id}})
+         const data=await Evenement.findOne({where:{id:id}})
+        res.status(200).send(data)
+    }else
+    {
+        res.status(404).send("evenement not found")
+    }
+     
+}
 // delete evenement par id
 
 const deleteevenement=async(req,res)=>{
@@ -89,5 +107,6 @@ module.exports={
     getevenement,
     updateevenement,
     deleteevenement,
-    deleteevenements
+    deleteevenements,
+    updateevenementsnbplacereserver
  }

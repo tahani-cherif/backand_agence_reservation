@@ -18,11 +18,13 @@ const routerhotel = require('./routes/hotelroute.js')
 const routerbus= require('./routes/busroute.js')
 const routerevenement= require('./routes/evenementroute.js')
 const routerreservationbus= require('./routes/reservation_bus_route')
+const routerreservationevenement= require('./routes/reservation_evenement_route')
 
 app.use('/api/hotel', routerhotel)
 app.use('/api/bus', routerbus)
 app.use('/api/evenement', routerevenement)
 app.use('/api/reservation_bus', routerreservationbus)
+app.use('/api/reservation_evenement', routerreservationevenement)
 //test
 app.get('/',(req,res)=>{
     res.json({message:'hello from api'})
