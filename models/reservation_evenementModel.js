@@ -2,23 +2,7 @@ const {Sequelize,DataTypes}=require('sequelize');
 
 module.exports=(Sequelize,DataTypes)=>{
    
-    const evenement=Sequelize.define('evenement',{
-        nom_evenement:{
-            type:DataTypes.STRING,
-            allowNull:false,
-            validate:{
-            notNull: {
-                msg: 'Please enter your name evenement'
-              }}
-        },
-        description:{
-            type:DataTypes.STRING,
-            allowNull:false,
-            validate:{
-                notNull: {
-                    msg: 'Please enter your description'
-                  }}
-        },
+    const reservation_evenement=Sequelize.define('reservation_evenement',{
         nb_place:{
            type:DataTypes.INTEGER,
            allowNull:false,
@@ -27,21 +11,11 @@ module.exports=(Sequelize,DataTypes)=>{
                msg: "Must be an integer number of pennies"
              },
              notNull: {
-               msg: 'Please enter your nombre place'
+               msg: 'Please enter your nb place'
              }
            }
         },
-        nb_place_reserver:{
-          type:DataTypes.INTEGER,
-          allowNull:true,
-          defaultValue:0,
-          validate:{
-            isInt: {
-              msg: "Must be an integer number of pennies"
-            }
-          }
-       },
-        prix_evenement:{
+        monatnt_total:{
           type:DataTypes.FLOAT,
           allowNull:false,
           validate:{
@@ -49,11 +23,11 @@ module.exports=(Sequelize,DataTypes)=>{
               msg: "Must be an float number of pennies"
             },
             notNull: {
-              msg: 'Please enter your price evenement'
-            }
+                msg: 'Please enter your adress'
+              }
           }
          },
-         date_debut:{
+        date_debut:{
             type:DataTypes.DATE,
             allowNull:false,
             validate:{
@@ -72,5 +46,5 @@ module.exports=(Sequelize,DataTypes)=>{
             }
            },
     });
-    return evenement
+    return reservation_evenement
 }
