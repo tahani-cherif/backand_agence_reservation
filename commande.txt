@@ -2,3 +2,6 @@ npm init //creation package.js
 npm i --save express sequelize cors mysql2 //installation express & sequelize & mysql
 npm i nodmon 
 nodemon server.js //run app
+npm install dotenv --save // pour utilise fichier .env
+
+require('dotenv').config()// import pour utiliser les variable dont fichier .env
