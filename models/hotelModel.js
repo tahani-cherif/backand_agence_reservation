@@ -130,7 +130,22 @@ module.exports=(Sequelize,DataTypes)=>{
        },
      
        services_equipements:{
-        type:DataTypes.JSON
+        type:DataTypes.JSON,
+        defaultValue: JSON.parse(JSON.stringify({
+           climatisation:false,
+            restaurant:false,
+            centreAffaires:false,
+            piscine:false,
+            television:false,
+            boutiqueCadeaux:false,
+            change:false,
+            bar:false,
+            plage:false,
+            cafe:false,
+            ascenseur:false,
+            tennis:false,
+            animauxAutorises:false
+        }))
        },
        image_hotel:{
         type:DataTypes.JSON

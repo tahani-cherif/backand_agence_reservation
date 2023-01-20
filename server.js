@@ -27,6 +27,11 @@ app.use('/api/evenement', routerevenement)
 app.use('/api/reservation_bus', routerreservationbus)
 app.use('/api/reservation_evenement', routerreservationevenement)
 app.use('/api/client', routerclient)
+
+//static Images Folder
+
+app.use('/image', express.static('./image'))
+
 //test
 app.get('/',(req,res)=>{
     res.json({message:'hello from api'})
