@@ -33,6 +33,10 @@ module.exports=(Sequelize,DataTypes)=>{
        adresse:{
         type:DataTypes.STRING,
         allowNull:false,
+        validate:{
+          notNull: {
+            msg: 'Please enter your adresse'
+        }}
        },
        nb_etoile:{
         type:DataTypes.INTEGER,
@@ -46,7 +50,16 @@ module.exports=(Sequelize,DataTypes)=>{
           }
         }
        },
-       prix_chambre_double:{
+       porcentage_chambre_triple:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          },
+          
+        }
+       },
+       porcentage_chambre_quadruple:{
         type:DataTypes.FLOAT,
         validate:{
           isFloat: {
@@ -54,53 +67,68 @@ module.exports=(Sequelize,DataTypes)=>{
           }
         }
        },
-       prix_chambre_single:{
+       frais_chambre_single:{
         type:DataTypes.FLOAT,
+        allowNull:false,
         validate:{
           isFloat: {
             msg: "Must be an float number of pennies"
-          }
+          },
+          notNull: {
+            msg: 'Please enter your frais single'
         }
-       },
-       prix_chambre_triple:{
-        type:DataTypes.FLOAT,
-        validate:{
-          isFloat: {
-            msg: "Must be an float number of pennies"
-          }
-        }
-       },
-       prix_chambre_quadruple:{
-        type:DataTypes.FLOAT,
-        validate:{
-          isFloat: {
-            msg: "Must be an float number of pennies"
-          }
         }
        },
        prix_demi_pension:{
         type:DataTypes.FLOAT,
+        allowNull:false,
         validate:{
           isFloat: {
             msg: "Must be an float number of pennies"
-          }
+          },
+          notNull: {
+            msg: 'Please enter your prix DP'
+        }
         }
        },
        prix_pension_complete:{
         type:DataTypes.FLOAT,
+        allowNull:false,
         validate:{
           isFloat: {
             msg: "Must be an float number of pennies"
-          }
+          },
+          notNull: {
+            msg: 'Please enter your prix pc'
+        }
         }
        },
        prix_all_inclusive:{
         type:DataTypes.FLOAT,
+        allowNull:false,
         validate:{
           isFloat: {
             msg: "Must be an float number of pennies"
-          }
+          },
+          notNull: {
+            msg: 'Please enter your prix AL'
         }
+        }
+       },
+       prix_all_inclusive_soft:{
+        type:DataTypes.FLOAT,
+        allowNull:false,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          },
+          notNull: {
+            msg: 'Please enter your prix ALs'
+        }
+        }
+       },
+        enfant_gratuit:{
+        type:DataTypes.INTEGER,
        },
        commision:{
         type:DataTypes.FLOAT,
