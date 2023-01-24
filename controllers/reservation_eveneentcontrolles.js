@@ -1,7 +1,7 @@
 const { default: axios } = require('axios')
 const db=require('../models')
 const reservation_evenement=db.reservation_evenement
-const evenementcontroller=require("../controlles/evenementcontrolles")
+const evenementcontroller=require("./evenementcontrolles")
 
 //return tous les reservation de evenement
 

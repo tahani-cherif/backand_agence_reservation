@@ -1,4 +1,4 @@
-const reservation_bus_controller=require("../controlles/reservation_buscontrolles")
+const reservation_bus_controller=require("../controllers/reservation_buscontrolles")
 const router=require("express").Router()
 
 router.get('/getallreservationbus',reservation_bus_controller.getallreservationbus)

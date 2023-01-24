@@ -1,4 +1,4 @@
-const reservation_evenement_controller=require("../controlles/reservation_eveneentcontrolles")
+const reservation_evenement_controller=require("../controllers/reservation_eveneentcontrolles")
 const router=require("express").Router()
 
 router.get('/getallreservationevenement',reservation_evenement_controller.getallreservationevenement)
