@@ -1,4 +1,4 @@
-const hotelcontroller=require("../controlles/hotelcontrolles")
+const hotelcontroller=require("../controllers/hotelcontrolles")
 const { auth } = require("../middleware/authantification")
 const router=require("express").Router()
 const multer=require('multer')

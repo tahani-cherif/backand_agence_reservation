@@ -1,4 +1,4 @@
-const evenementcontroller=require("../controlles/evenementcontrolles")
+const evenementcontroller=require("../controllers/evenementcontrolles")
 const router=require("express").Router()
 
 router.get('/getallevenement',evenementcontroller.getallevenement)

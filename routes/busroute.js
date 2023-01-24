@@ -1,4 +1,4 @@
-const buscontroller=require("../controlles/buscontrolles")
+const buscontroller=require("../controllers/buscontrolles")
 const router=require("express").Router()
 
 router.get('/getallbus',buscontroller.getallbus)

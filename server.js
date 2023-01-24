@@ -21,6 +21,7 @@ const routerevenement= require('./routes/evenementroute.js')
 const routerreservationbus= require('./routes/reservation_bus_route')
 const routerreservationevenement= require('./routes/reservation_evenement_route')
 const routerclient= require('./routes/clientroute')
+const routeruser= require('./routes/userroute')
 
 app.use('/api/hotel', routerhotel)
 app.use('/api/bus', routerbus)
@@ -28,6 +29,7 @@ app.use('/api/evenement', routerevenement)
 app.use('/api/reservation_bus', routerreservationbus)
 app.use('/api/reservation_evenement', routerreservationevenement)
 app.use('/api/client', routerclient)
+app.use('/api/user', routeruser)
 
 //static Images Folder
 

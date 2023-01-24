@@ -1,4 +1,4 @@
-const clientcontroller=require("../controlles/clientcontrolles")
+const clientcontroller=require("../controllers/clientcontrolles")
 const router=require("express").Router()
 
 router.get('/getallclient',clientcontroller.getallclient)
