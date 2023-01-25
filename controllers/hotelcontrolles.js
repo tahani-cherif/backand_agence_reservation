@@ -68,8 +68,8 @@ const gethotel=async(req,res)=>
     commision:hotel.commision,
     date_debut:hotel.date_debut,
     date_fin:hotel.date_fin,
-    services_equipements:JSON.parse(hotel.services_equipements),
-    image_hotel:JSON.parse(hotel.image_hotel),
+    services_equipements:hotel.services_equipements,
+    image_hotel:hotel.image_hotel,
     createdAt:hotel.createdAt,
     updatedAt:hotel.updatedAt
   }

@@ -13,10 +13,18 @@ const getallevenement=async(req,res)=>
 const postevenement=async(req,res)=>
 {
     const body=req.body
-    
-    let evenement=await Evenement.create(body)
+    const data={
+        nom_evenement:body.nom_evenement,
+        description:body.description,
+        nb_place:body.nb_place,
+        nb_place_reserver:body.nb_place_reserver,
+        prix_evenement:body.prix_evenement,
+        date_debut:body.date_debut,
+        date_fin:body.date_fin,
+        image_evenement:req.file.path
+    }
+    let evenement=await Evenement.create(data)
     res.status(200).send(evenement)
-    console.log(evenement)
 }
 // return evenement by id
 const getevenement=async(req,res)=>

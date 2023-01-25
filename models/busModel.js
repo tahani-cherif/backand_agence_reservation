@@ -19,6 +19,22 @@ module.exports=(Sequelize,DataTypes)=>{
                     msg: 'Please enter your reference'
                   }}
         },
+        point_depart:{
+          type:DataTypes.STRING,
+          allowNull:false,
+          validate:{
+          notNull: {
+              msg: 'Please enter your point_depart'
+            }}
+      },
+      point_arrive:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        validate:{
+        notNull: {
+            msg: 'Please enter your point_arrive'
+          }}
+    },
         nb_place:{
            type:DataTypes.INTEGER,
            allowNull:false,
