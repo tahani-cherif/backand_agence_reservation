@@ -71,6 +71,9 @@ module.exports=(Sequelize,DataTypes)=>{
               }
             }
            },
+        image_evenement:{
+          type:DataTypes.JSON
+        }
     });
     return evenement
 }
