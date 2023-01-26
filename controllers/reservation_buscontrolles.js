@@ -36,7 +36,13 @@ const getallreservationbusbybus=async(req,res)=>{
     const reservation=await Reservation_bus.findAll({where:{busId:id}})
     res.status(200).send(reservation)
 }
+// return les reservation d'une  bus donnee
 
+const getallreservationbusbyid=async(req,res)=>{
+    let id=req.params.id
+    const reservation=await Reservation_bus.findAll({where:{id:id}})
+    res.status(200).send(reservation)
+}
 // return les reservation d'une  user  donnee
 
 const getallreservationbusbyuser=async(req,res)=>{
@@ -110,5 +116,6 @@ module.exports={
     getallreservationbusbybus,
     getallreservationbusbyuser,
     updatereservationbus,
-    deletereservationbus
+    deletereservationbus,
+    getallreservationbusbyid
  }
