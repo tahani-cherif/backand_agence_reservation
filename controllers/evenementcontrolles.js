@@ -92,9 +92,12 @@ const deleteevenements=async(req,res)=>{
     let tabverif=[]
     let message
     tabId.map(async(item)=>{
+        console.log(String(evenement.image_evenement).substring(1,String(evenement.image_evenement).length-1))
         const evenement=await Evenement.findOne({where:{id:item}})
+        
         if(evenement)
-        {   fs.unlinkSync(JSON.parse(evenement.image_evenement))
+        {   let x=String(evenement.image_evenement).substring(1,String(evenement.image_evenement).length-1)
+             fs.unlinkSync(x)
             await Evenement.destroy({where:{id:item}})
              message="bus deleted "+item
              tabverif.push(message)

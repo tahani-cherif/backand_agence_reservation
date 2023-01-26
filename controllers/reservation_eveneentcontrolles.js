@@ -18,9 +18,9 @@ const reservation_evenementpost=async(req,res)=>
     const body=req.body
    // let data= evenementcontroller.getevenement(body.evenementId,res)
     let data=await axios.get(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/evenement/getoneevenement/${body.evenementId }`).then(res => res.data)// get data de evenement
-    if(data.nb_place_reserver+body.nb_place<=data.nb_place) // test sur nombre de place disponible
+    if(Number(data.nb_place_reserver)+Number(body.nb_place)<=Number(data.nb_place)) // test sur nombre de place disponible
     {   
-        let nouv_nb_place_reserver={nouveau_nb_place:data.nb_place_reserver+body.nb_place};
+        let nouv_nb_place_reserver={nouveau_nb_place:Number(data.nb_place_reserver)+Number(body.nb_place)};
        await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/evenement/updateevenementsnbplacereserver/${body.evenementId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
         let reservation=await reservation_evenement.create(body)  // creation une reservation bus
         res.status(200).send(reservation)

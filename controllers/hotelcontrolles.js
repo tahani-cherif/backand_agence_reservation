@@ -35,7 +35,8 @@ const posthotels=async(req,res)=>
         commision:body.commision,
         date_debut:body.date_debut,
         date_fin:body.date_fin,
-        image_hotel:image
+        image_hotel:image,
+        services_equipements:JSON.parse(body.services_equipements)
       }
 
     let hotel=await Hotel.create(data).catch((e)=>{
