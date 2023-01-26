@@ -13,7 +13,7 @@ const getallbus=async(req,res)=>
 const postbus=async(req,res)=>
 {
     const body=req.body
-    let bus=await Bus.create(body)
+    let bus=await Bus.create(body).catch(err=>res.status(404).send(err));
     res.status(200).send(bus)
 }
 // return bus by id
