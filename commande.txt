@@ -3,5 +3,12 @@ npm i --save express sequelize cors mysql2 //installation express & sequelize & 
 npm i nodmon 
 nodemon server.js //run app
 npm install dotenv --save // pour utilise fichier .env
-
 require('dotenv').config()// import pour utiliser les variable dont fichier .env
+npm i fs //package pour delete une image
+npm i multer //package pour uplod un image
+npm i path //package pour RECOUPERE path
+npm i -g pm2 // package pour start server 
+pm2 start server.js --watch// image de server 
+pm2 list  // liste les server disponnible
+pm2 stop 0 // stop server avec id de server 0
+pm2 start 0 // start server avec id de server 0

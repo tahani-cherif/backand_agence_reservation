@@ -16,10 +16,11 @@ const reservation_buspost=async(req,res)=>
 {   
     const body=req.body
     let data=await axios.get(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/getonebus/${body.busId}`).then(res => res.data)// get data de bus
-    if(data.nb_place_reserver+body.nb_place<=data.nb_place) // test sur nombre de place disponible
+    if(Number(data.nb_place_reserver)+Number(body.nb_place)<=Number(data.nb_place)) // test sur nombre de place disponible
     {   
-        let nouv_nb_place_reserver={nouveau_nb_place:data.nb_place_reserver+body.nb_place};
-       await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${body.busId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
+        let nouv_nb_place_reserver={nouveau_nb_place:Number(data.nb_place_reserver)+Number(body.nb_place)};
+
+        await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${body.busId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
         let reservation=await Reservation_bus.create(body)  // creation une reservation bus
         res.status(200).send(reservation)
     }else{
