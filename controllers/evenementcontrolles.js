@@ -1,3 +1,4 @@
+const fs= require('fs')
 const db=require('../models')
 const Evenement=db.evenement
 
@@ -75,7 +76,7 @@ const deleteevenement=async(req,res)=>{
     let id=req.params.id
     const evenement=await Evenement.findOne({where:{id:id}})
     if(evenement)
-    {
+    {   fs.unlinkSync(JSON.parse(evenement.image_evenement))
         await Evenement.destroy({where:{id:id}})
         res.status(200).send("hotel deleted")
     }else{
@@ -93,7 +94,7 @@ const deleteevenements=async(req,res)=>{
     tabId.map(async(item)=>{
         const evenement=await Evenement.findOne({where:{id:item}})
         if(evenement)
-        {   
+        {   fs.unlinkSync(JSON.parse(evenement.image_evenement))
             await Evenement.destroy({where:{id:item}})
              message="bus deleted "+item
              tabverif.push(message)

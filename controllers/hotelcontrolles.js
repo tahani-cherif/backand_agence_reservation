@@ -1,6 +1,5 @@
+const fs= require('fs')
 const db=require('../models')
-const multer=require('multer')
-const path=require('path')
 const Hotel=db.hotel
 
 
@@ -122,6 +121,10 @@ const updatehotel=async(req,res)=>{
 const deletehotel=async(req,res)=>{
     let id=req.params.id
     const hotel=await Hotel.findOne({where:{id:id}})
+    const img=JSON.parse(hotel.image_hotel)
+    img.map((e)=>{
+    fs.unlinkSync(e)
+    })
     if(hotel)
     {
         await Hotel.destroy({where:{id:id}})
@@ -141,16 +144,17 @@ const deletehotels=async(req,res)=>{
     tabId.map(async(item)=>{
         const hotel=await Hotel.findOne({where:{id:item}})
         if(hotel)
-        {   
+        {   const img=JSON.parse(hotel.image_hotel)
+            img.map((e)=>{
+            fs.unlinkSync(e)
+            })
             await Hotel.destroy({where:{id:item}})
              message="hotel deleted "+item
              tabverif.push(message)
-        console.log("test")
         }else{
          message="Hotel not found "+item
         tabverif.push(message)
         }
-        console.log(tabverif)
     })
     setTimeout(() => {
         res.send(tabverif)
