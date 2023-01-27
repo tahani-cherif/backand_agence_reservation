@@ -36,7 +36,7 @@ const getallreservationbusbybus=async(req,res)=>{
     const reservation=await Reservation_bus.findAll({where:{busId:id}})
     res.status(200).send(reservation)
 }
-// return les reservation d'une  bus donnee
+// return les reservation by id
 
 const getallreservationbusbyid=async(req,res)=>{
     let id=req.params.id

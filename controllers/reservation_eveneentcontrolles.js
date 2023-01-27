@@ -37,7 +37,13 @@ const getallreservationevenementbyevenement=async(req,res)=>{
     const reservation=await reservation_evenement.findAll({where:{evenementId:id}})
     res.status(200).send(reservation)
 }
+// return les reservation d'une  bus donnee
 
+const getreservationevenementbyid=async(req,res)=>{
+    let id=req.params.id
+    const reservation=await reservation_evenement.findAll({where:{id:id}})
+    res.status(200).send(reservation)
+}
 // return les reservation d'une  user  donnee
 
 const getallreservationevenementbyuser=async(req,res)=>{
@@ -112,5 +118,6 @@ module.exports={
     getallreservationevenementbyevenement,
     getallreservationevenementbyuser,
     updatereservationevenement,
-    deletereservationevenement
+    deletereservationevenement,
+    getreservationevenementbyid
 }
