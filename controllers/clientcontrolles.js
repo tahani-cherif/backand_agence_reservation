@@ -28,6 +28,17 @@ const getclient=async(req,res)=>
        res.status(404).send("client not found")
    }
 }
+//get client by mail
+const getclientbymail=async(req,res)=>
+{
+   const client=await Client.findOne({where:{e_mail:req.body.e_mail}}).catch(err=>res.status(404).send(err))
+   if(client)
+   {
+    res.status(200).send(client)
+   }else{
+       res.status(404).send("client not found")
+   }
+}
 // delete client par id
 
 const deletclient=async(req,res)=>{
@@ -46,5 +57,6 @@ module.exports={
     getallclient,
     postclient,
     getclient,
-    deletclient
+    deletclient,
+    getclientbymail
 }
