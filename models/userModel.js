@@ -55,8 +55,32 @@ module.exports=(Sequelize,DataTypes)=>{
        },
        cp_agence:{
         type:DataTypes.STRING,
-        allowNull:false,
+        allowNull:true,
        },
+       solde:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          }
+        }
+       },
+       credit:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          }
+        }
+       },
+       commition_hotel:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          }
+        }
+       }
        
        
     })

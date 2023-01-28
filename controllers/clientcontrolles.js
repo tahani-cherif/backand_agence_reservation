@@ -12,7 +12,7 @@ const getallclient=async(req,res)=>
 const postclient=async(req,res)=>
 {
     const body=req.body
-    let client=await Client.create(body)
+    let client=await Client.create(body).catch(err=>res.status(404).send(err))
     res.status(200).send(client)
 }
 

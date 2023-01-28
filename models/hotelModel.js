@@ -50,6 +50,18 @@ module.exports=(Sequelize,DataTypes)=>{
           }
         }
        },
+       capacite:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        validate:{
+          isInt: {
+            msg: "Must be an integer number of pennies"
+          },
+          notNull: {
+            msg: 'Please enter your  capacite'
+          }
+        }
+       },
        porcentage_chambre_triple:{
         type:DataTypes.FLOAT,
         validate:{

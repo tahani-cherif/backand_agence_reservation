@@ -13,14 +13,19 @@ module.exports=(Sequelize,DataTypes)=>{
         },
         e_mail:{
             type:DataTypes.STRING,
-            isUnique :true,
-            allowNull:false,
-            unique: true,
             validate:{
-             isEmail : true,
-             notNull: {
-              msg: 'Please enter your e_mail'
-            }}},
+             isEmail : true,}
+            },
+        cin:{
+              type:DataTypes.BIGINT,
+              unique: true,
+              allowNull:false,
+              validate:{
+                notNull: {
+                   msg: 'Please enter your date naissance'
+                   }
+                   }
+            },
         numero_telephone : {
             type:DataTypes.BIGINT,
              allowNull:false,

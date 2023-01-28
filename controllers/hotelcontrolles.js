@@ -18,9 +18,11 @@ const posthotels=async(req,res)=>
     const body=req.body
     let image=[]
     req.files.map(item=>image.push(item.path))
+    console.log(req.files)
     const data={
         nom_hotel:body.nom_hotel,
         e_mail:body.e_mail,
+        capacite:body.capacite,
         numero_telephone:body.numero_telephone,
         adresse:body.adresse,
         nb_etoile:body.nb_etoile,
@@ -38,11 +40,8 @@ const posthotels=async(req,res)=>
         image_hotel:image,
         services_equipements:JSON.parse(body.services_equipements)
       }
-
-    let hotel=await Hotel.create(data).catch((e)=>{
-        console.log(req)
-        res.status(400).send(e)
-        })
+console.log(data)
+    let hotel=await Hotel.create(data)
 res.status(200).send(hotel)}
 
 // return hotel by id
@@ -54,6 +53,7 @@ const gethotel=async(req,res)=>
     id:hotel.id,
     nom_hotel:hotel.nom_hotel,
     e_mail:hotel.e_mail,
+    capacite:hotel.capacite,
     numero_telephone:hotel.numero_telephone,
     adresse:hotel.adresse,
     nb_etoile:hotel.nb_etoile,
@@ -90,6 +90,7 @@ const updatehotel=async(req,res)=>{
             id:hotel.id,
             nom_hotel:hotel.nom_hotel,
             e_mail:hotel.e_mail,
+            capacite:hotel.capacite,
             numero_telephone:hotel.numero_telephone,
             adresse:hotel.adresse,
             nb_etoile:hotel.nb_etoile,

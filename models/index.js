@@ -37,6 +37,8 @@ DB.reservation_bus = require('./reservation_busModel.js')(db, DataTypes)
 DB.reservation_evenement = require('./reservation_evenementModel.js')(db, DataTypes)
 DB.client = require('./clientModel.js')(db, DataTypes)
 DB.user = require('./userModel.js')(db, DataTypes)
+DB.avion = require('./avionModel.js')(db, DataTypes)
+DB.programme = require('./programme')(db, DataTypes)
 
 //relation entre les tableau
 
@@ -58,7 +60,15 @@ DB.user = require('./userModel.js')(db, DataTypes)
  DB.client.belongsTo(DB.reservation_evenement,{foreignkey:'id_evenements'})//relation entre table client et reservation evenement 
  DB.reservation_evenement.hasMany(DB.client,{foreignkey:'id_evenements'})//relation entre table reservation evenement et client 
 
-
+ //relation table programme
+ DB.programme.belongsTo(DB.hotel,{foreignkey:'id_hotel'})
+ DB.hotel.hasMany(DB.programme,{foreignkey:'id_hotel'})
+ DB.programme.belongsTo(DB.bus,{foreignkey:'id_bus'})
+ DB.bus.hasMany(DB.programme,{foreignkey:'id_bus'})
+ DB.programme.belongsTo(DB.avion,{foreignkey:'id_avion'})
+ DB.avion.hasMany(DB.programme,{foreignkey:'id_avion'})
+ DB.programme.belongsTo(DB.evenement,{foreignkey:'id_hotel'})
+ DB.evenement.hasMany(DB.programme,{foreignkey:'id_hotel'})
 
  DB.sequelize.sync({ force: false })
 .then(() => {

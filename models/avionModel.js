@@ -2,13 +2,13 @@ const {Sequelize,DataTypes}=require('sequelize');
 
 module.exports=(Sequelize,DataTypes)=>{
    
-    const bus=Sequelize.define('bus',{
-        matricule:{
+    const avion=Sequelize.define('avion',{
+        nom_avion:{
             type:DataTypes.STRING,
             allowNull:false,
             validate:{
             notNull: {
-                msg: 'Please enter your matricule'
+                msg: 'Please enter your non avion'
               }}
         },
         reference:{
@@ -35,10 +35,7 @@ module.exports=(Sequelize,DataTypes)=>{
             msg: 'Please enter your point_arrive'
           }}
     },
-    desc:{
-      type:DataTypes.STRING,
-  },
-        nb_place:{
+     nb_place:{
            type:DataTypes.INTEGER,
            allowNull:false,
            validate:{
@@ -60,7 +57,19 @@ module.exports=(Sequelize,DataTypes)=>{
             }
           }
        },
-        prix_place:{
+        prix_place_simple:{
+          type:DataTypes.FLOAT,
+          allowNull:false,
+          validate:{
+            isFloat: {
+              msg: "Must be an float number of pennies"
+            },
+            notNull: {
+              msg: 'Please enter your nombre place'
+            }
+          }
+         },
+         prix_place_speciale:{
           type:DataTypes.FLOAT,
           allowNull:false,
           validate:{
@@ -91,5 +100,5 @@ module.exports=(Sequelize,DataTypes)=>{
             }
            },
     });
-    return bus
+    return avion
 }
