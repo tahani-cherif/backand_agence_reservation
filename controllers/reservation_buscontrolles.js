@@ -1,6 +1,7 @@
 const { default: axios } = require('axios')
 const db=require('../models')
 const Reservation_bus=db.reservation_bus
+const User=db.user
 
 
 //return tous les reservation de bus
@@ -19,10 +20,31 @@ const reservation_buspost=async(req,res)=>
     if(Number(data.nb_place_reserver)+Number(body.nb_place)<=Number(data.nb_place)) // test sur nombre de place disponible
     {   
         let nouv_nb_place_reserver={nouveau_nb_place:Number(data.nb_place_reserver)+Number(body.nb_place)};
-
-        await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${body.busId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
-        let reservation=await Reservation_bus.create(body)  // creation une reservation bus
-        res.status(200).send(reservation)
+        let user=await User.findOne({where:{id:body.userId}}).then((res)=>res.dataValues)
+        console.log(user)
+        if(Number(user.solde)-Number(body.monatnt_total)>=0)
+         {  
+            await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${body.busId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
+            user.solde=Number(user.solde)-Number(body.monatnt_total)
+            await User.update(user,{where:{id:body.userId}})
+            let reservation=await Reservation_bus.create(body)  // creation une reservation bus
+            res.status(200).send(reservation)}
+        else{
+            const reste=Number(body.monatnt_total)-Number(user.solde)
+            console.log(Number(user.credit)-reste)
+            if(Number(user.credit)-reste>=0)
+             {  user.solde=Number(user.credit)-reste
+                user.solde=0
+                user.credit=Number(user.credit)-reste
+                await User.update(user,{where:{id:body.userId}})
+                await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${body.busId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
+                let reservation=await Reservation_bus.create(body)  // creation une reservation bus
+                res.status(200).send(reservation)
+             }else{
+                res.status(404).send("solde et credit insefisent")
+             }
+           
+        }
     }else{
         res.status(200).send("aucune place desponible")
     }
