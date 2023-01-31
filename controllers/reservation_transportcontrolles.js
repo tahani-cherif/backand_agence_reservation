@@ -90,7 +90,7 @@ const getallreservationtarnsportbyuser=async(req,res)=>{
 
 const updatereservationtarnsport=async(req,res)=>{
     let id=req.params.id
-    const body=req.body
+    let body=req.body
     let reservation=await Reservation_tarnsport.findOne({where:{id:id}}).then(res=>res.dataValues)
     if(reservation)
      {
@@ -102,36 +102,34 @@ const updatereservationtarnsport=async(req,res)=>{
             :await Avion.findOne({where:{id:reservation.id_transport}}).then(res => res.dataValues).catch(err=>console.log(err))
             const nb_total=(Number(data.nb_place_reserver)-Number(reservation.nb_place))+Number(req.body.nb_place)
             if(nb_total<=data.nb_place) // test sur nombre de place disponible
-            {   let user=await User.findOne({where:{id:body.userId}}).then((res)=>res.dataValues).catch((err)=> res.status(404).send(err))
+            {   
+                let user=await User.findOne({where:{id:body.userId}}).then((res)=>res.dataValues).catch((err)=> res.status(404).send(err))
+               console.log(user)
                 if((Number(user.solde)+Number(reservation.solde))-Number(body.monatnt_total)>=0)
-                {  
+                {  console.log("test")
                     let nouv_nb_place_reserver={nouveau_nb_place:(data.nb_place_reserver-reservation.nb_place)+req.body.nb_place}; // nouveau nombre de place
                     reservation.type==="bus"? await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${reservation.id_transport}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
                     : await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/avion/updateavionnbplacereserver/${reservation.id_transport}`,nouv_nb_place_reserver)
-                    body.solde=(Number(user.solde)+Number(reservation.solde))-Number(body.monatnt_total)
+                    body.solde=Number(body.monatnt_total)
                     user.solde=(Number(user.solde)+Number(reservation.solde))-Number(body.monatnt_total)
+                    user.credit=Number(user.credit)+Number(reservation.credit)
                     body.credit=0
-                     await User.update(user,{where:{id:body.userId}})
-                    await Reservation_tarnsport.update(req.body,{where:{id:id}})  // update une reservation bus
+                    await Reservation_tarnsport.update(req.body,{where:{id:id}}).then(async(secc)=>await User.update(user,{where:{id:body.userId}})).catch(err=>console.log(err))  // update une reservation bus
                     let reservation2=await Reservation_tarnsport.findOne({where:{id:id}})
                     res.status(200).send(reservation2)}
                 else{
                     const reste=Number(body.monatnt_total)-(Number(user.solde)+Number(reservation.solde))
-                    console.log(Number(user.credit)-reste)
                     body.solde=Number(body.monatnt_total)-reste
-                    console.log(reste)
                     let test=reservation
                     if((Number(test.credit)+Number(user.credit))-reste>=0)
                      {  
-                        user.solde=0
-                        
+                        user.solde=Number(0)
                         user.credit=(Number(test.credit)+Number(user.credit))-reste
-                        body.credit=reste
+                        body.credit=Number(reste)
                         let nouv_nb_place_reserver={nouveau_nb_place:(data.nb_place_reserver-test.nb_place)+req.body.nb_place}; // nouveau nombre de place
                         test.type==="bus"? await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${test.id_transport}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
                         : await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/avion/updateavionnbplacereserver/${test.id_transport}`,nouv_nb_place_reserver)
-                        await User.update(user,{where:{id:body.userId}})
-                        await Reservation_tarnsport.update(body,{where:{id:id}})  // creation une reservation bus
+                        await Reservation_tarnsport.update(body,{where:{id:id}}).then(async(secc)=>await User.update(user,{where:{id:body.userId}}).catch(err=>res.status(404).send(err))).catch(err=>res.status(404).send(err))  // creation une reservation bus
                         let reservation2=await Reservation_tarnsport.findOne({where:{id:id}})
                         res.status(200).send(reservation2)
                      }else{

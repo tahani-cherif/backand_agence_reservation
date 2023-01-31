@@ -28,8 +28,7 @@ const reservation_evenementpost=async(req,res)=>
             body.solde=Number(body.monatnt_total)
             user.solde=Number(user.solde)-Number(body.monatnt_total)
             body.credit=0
-            let reservation=await reservation_evenement.create(body)  // creation une reservation evenement
-            await User.update(user,{where:{id:body.userId}}) 
+            let reservation=await reservation_evenement.create(body).then(async(secc)=>await User.update(user,{where:{id:body.userId}}) ).catch((err)=>res.status(404).send(err))  // creation une reservation evenement
             res.status(200).send(reservation)}
         else{
             const reste=Number(body.monatnt_total)-Number(user.solde)
@@ -40,9 +39,8 @@ const reservation_evenementpost=async(req,res)=>
                 user.credit=Number(user.credit)-reste
                 body.credit=reste
                await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/evenement/updateevenementsnbplacereserver/${body.evenementId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
-               let reservation=await reservation_evenement.create(body)  // creation une reservation evenement
-               await User.update(user,{where:{id:body.userId}})
-               res.status(200).send(reservation)
+               let reservation=await reservation_evenement.create(body).then(async(secc)=>await User.update(user,{where:{id:body.userId}}) ).catch((err)=>res.status(404).send(err))  // creation une reservation evenement
+               res.status(200).send("reservation cree")
         }else{
             res.status(404).send("solde et credit insefisent")
         }
@@ -84,49 +82,43 @@ const updatereservationevenement=async(req,res)=>{
         let date=datesys-reservation.createdAt
         date=Math.floor(date/ (1000 * 86400 * 2) ) ;
          if(date<1){ // test sur time ne depase pas 48h 
-
             const data=await axios.get(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/evenement/getoneevenement/${body.evenementId }`).then(res => res.data) // get une bus by id
             const nb=Number(req.body.nb_place)-Number(reservation.nb_place)
             const nb_total=(Number(data.nb_place_reserver)-Number(reservation.nb_place))+Number(req.body.nb_place)
-            console.log(nb_total)
             if(nb_total<=data.nb_place) // test sur nombre de place disponible
-            {     console.log(body)
-                let user=await User.findOne({where:{id:body.userId}}).then((res)=>res.dataValues).catch((err)=> res.status(404).send(err))
-            if((Number(user.solde)+Number(reservation.solde))-Number(body.monatnt_total)>=0)
-            {  
-                let nouv_nb_place_reserver={nouveau_nb_place:(data.nb_place_reserver-reservation.nb_place)+req.body.nb_place}; // nouveau nombre de place
-               await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/evenement/updateevenementsnbplacereserver/${body.evenementId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
-               body.solde=(Number(user.solde)+Number(reservation.solde))-Number(body.monatnt_total)
-               user.solde=(Number(user.solde)+Number(reservation.solde))-Number(body.monatnt_total)
-               body.credit=0
-               console.log(body)
-               await reservation_evenement.update(body,{where:{id:id}})  // update une reservation bus
-               await User.update(user,{where:{id:body.userId}})
-               let reservation2=await reservation_evenement.findOne({where:{id:id}})
-               res.status(200).send(reservation2)
-            }
+            {    
+                let user=await User.findOne({where:{id:body.userId}}).then((res)=>res.dataValues)
+                if((Number(user.solde)+Number(reservation.solde))-Number(body.monatnt_total)>=0)
+                    {  console.log("id",id)
+                        let nouv_nb_place_reserver={nouveau_nb_place:(data.nb_place_reserver-reservation.nb_place)+req.body.nb_place}; // nouveau nombre de place
+                        await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/evenement/updateevenementsnbplacereserver/${body.evenementId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
+                        body.solde=Number(body.monatnt_total)
+                        user.solde=(Number(user.solde)+Number(reservation.solde))-Number(body.monatnt_total)
+                        user.credit=Number(user.credit)+Number(reservation.credit)
+                        body.credit=0
+                        await reservation_evenement.update(body,{where:{id:id}}).then(async(sec)=> await User.update(user,{where:{id:body.userId}}).catch((err)=> res.status(404).send(err)) ).catch((err)=> res.status(404).send(err))   // update une reservation bus
+                        let reservation2=await reservation_evenement.findOne({where:{id:id}})
+                        res.status(200).send(reservation2)
+                    }
              else{
-                console.log(body)
-                const reste=Number(body.monatnt_total)-(Number(user.solde)+Number(reservation.solde))
-                    console.log(Number(user.credit)-reste)
+                let test=reservation
+                const reste=Number(body.monatnt_total)-(Number(user.solde)+Number(test.solde))
                     body.solde=Number(body.monatnt_total)-reste
-                    // console.log(reste)
-                    let test=reservation
                     if((Number(test.credit)+Number(user.credit))-reste>=0)
                      {  
-                        user.solde=0
+                        user.solde=Number(0)
                         user.credit=(Number(test.credit)+Number(user.credit))-reste
-                        body.credit=reste
+                        console.log(Number(test.credit),Number(user.credit),reste, user.credit)
+                        body.credit=Number(reste)
                         let nouv_nb_place_reserver={nouveau_nb_place:(data.nb_place_reserver-test.nb_place)+req.body.nb_place}; // nouveau nombre de place
                         await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/evenement/updateevenementsnbplacereserver/${body.evenementId}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
-                        await reservation_evenement.update(body,{where:{id:id}})  // update une reservation bus
-                        await User.update(user,{where:{id:body.userId}})
+                        await reservation_evenement.update(body,{where:{id:id}}).then(async(secc)=> await User.update(user,{where:{id:body.userId}}).catch(err=>res.status(404).send(err))).catch(err=>res.status(404).send(err))  // update une reservation bus
                         let reservation2=await reservation_evenement.findOne({where:{id:id}})
                         res.status(200).send(reservation2)
                      }else{
                         res.status(404).send("solde et credit insefisent")
                      }
-
+                     console.log("6 fdhgh")
              }}else{
                 res.status(200).send("aucune place desponible")
             }
@@ -157,8 +149,7 @@ const deletereservationevenement=async(req,res) => {
            let user=await User.findOne({where: {id:reservation.userId}}).then((res)=>res.dataValues).catch((err)=> res.status(404).send(err))
             user.credit=Number(reservation.credit)+Number(user.credit)
             user.solde=Number(reservation.solde)+Number(user.solde)
-           await reservation_evenement.destroy({where: {id:id}}).catch((err)=> res.status(404).send(err)) // delete une reservation
-           await User.update(user,{where:{id:reservation.userId}}).catch((err)=> res.status(404).send(err))
+           await reservation_evenement.destroy({where: {id:id}}).then(async(sec)=> await User.update(user,{where:{id:reservation.userId}}).catch((err)=> res.status(404).send(err))).catch((err)=> res.status(404).send(err)) // delete une reservation
            res.status(200).send("reservation deleted") 
            }
          else{
