@@ -79,10 +79,26 @@ const loginAgence = async (req, res) => {
 
 }
 
+// delete bus par id
+
+const deleteuser=async(req,res)=>{
+    let id=req.params.id
+    const user=await User.findOne({where:{id:id}}).catch(err=>res.status(404).send(err))
+    if(user)
+    {
+        await User.destroy({where:{id:id}}).catch(err=>res.status(404).send(err))
+        res.status(200).send("user deleted")
+    }else{
+        res.status(404).send("user not found")
+    }
+
+}
+
 module.exports={
     getAllAgence,
     postAgence,
     updateAgence,
     getuser,
-    loginAgence
+    loginAgence,
+    deleteuser
 }

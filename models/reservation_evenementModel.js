@@ -27,6 +27,22 @@ module.exports=(Sequelize,DataTypes)=>{
               }
           }
          },
+         solde:{
+          type:DataTypes.FLOAT,
+          validate:{
+            isFloat: {
+              msg: "Must be an float number of pennies"
+            }
+          }
+         },
+         credit:{
+          type:DataTypes.FLOAT,
+          validate:{
+            isFloat: {
+              msg: "Must be an float number of pennies"
+            }
+          }
+         },
         date_debut:{
             type:DataTypes.DATE,
             allowNull:false,

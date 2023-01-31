@@ -7,6 +7,7 @@ router.post('/postAgence',agenceController.postAgence)
 router.get('/getagence/:id',agenceController.getuser)
 router.put('/updateAgence/:id',agenceController.updateAgence)
 router.post('/loginAgence',agenceController.loginAgence)
+router.delete('/detleteuser/:id',agenceController.deleteuser)
 
 
 module.exports=router

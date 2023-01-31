@@ -43,33 +43,6 @@ module.exports=(Sequelize,DataTypes)=>{
                 }
                 }
                },
-        montant_hotel:{
-          type:DataTypes.FLOAT,
-          allowNull:true,
-          validate:{
-            isFloat: {
-              msg: "Must be an float number of pennies"
-            }
-          }
-         },
-         montant_bus:{
-            type:DataTypes.FLOAT,
-            allowNull:true,
-            validate:{
-              isFloat: {
-                msg: "Must be an float number of pennies"
-              }
-            }
-           },
-           montant_evenement:{
-            type:DataTypes.FLOAT,
-            allowNull:true,
-            validate:{
-              isFloat: {
-                msg: "Must be an float number of pennies"
-              }
-            }
-           },
        
     });
     return client
