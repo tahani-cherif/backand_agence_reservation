@@ -1,6 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+
 
 const app = express()
 const corOptions={
@@ -15,6 +18,7 @@ app.use(express.json())
 
 app.use(express.urlencoded({ extended: true }))
 
+
 const routerhotel = require('./routes/hotelroute.js')
 const routerbus= require('./routes/busroute.js')
 const routerevenement= require('./routes/evenementroute.js')
@@ -24,6 +28,9 @@ const routerclient= require('./routes/clientroute')
 const routeruser= require('./routes/userroute')
 const routeravion= require('./routes/avionroute')
 const routerprogramme= require('./routes/programmeroute')
+const routerreservation= require('./routes/reservationroute')
+const routerchambre= require('./routes/chambreroute')
+const routerreservationhotel= require('./routes/reservation_hotel')
 
 app.use('/api/hotel', routerhotel)
 app.use('/api/bus', routerbus)
@@ -34,6 +41,10 @@ app.use('/api/client', routerclient)
 app.use('/api/user', routeruser)
 app.use('/api/avion', routeravion)
 app.use('/api/programme', routerprogramme)
+app.use('/api/reservation', routerreservation)
+app.use('/api/chambre', routerchambre)
+app.use('/api/reservation_hotel', routerreservationhotel)
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //static Images Folder
 

@@ -40,6 +40,8 @@ DB.user = require('./userModel.js')(db, DataTypes)
 DB.avion = require('./avionModel.js')(db, DataTypes)
 DB.programme = require('./programme')(db, DataTypes)
 DB.reservation = require('./reservationModale')(db, DataTypes)
+DB.chambre = require('./chambreModel')(db, DataTypes)
+DB.reservation_hotel = require('./reservationhotelModel')(db, DataTypes)
 
 //relation entre les tableau
 
@@ -66,8 +68,10 @@ DB.reservation = require('./reservationModale')(db, DataTypes)
  DB.bus.hasMany(DB.programme,{foreignkey:'id_bus'})
  DB.programme.belongsTo(DB.avion,{foreignkey:'id_avion'})
  DB.avion.hasMany(DB.programme,{foreignkey:'id_avion'})
- DB.programme.belongsTo(DB.evenement,{foreignkey:'id_hotel'})
- DB.evenement.hasMany(DB.programme,{foreignkey:'id_hotel'})
+ DB.programme.belongsTo(DB.evenement,{foreignkey:'id_event'})
+ DB.evenement.hasMany(DB.programme,{foreignkey:'id_event'})
+ DB.programme.belongsTo(DB.hotel,{foreignkey:'id_hotel'})
+ DB.hotel.hasMany(DB.programme,{foreignkey:'id_hotel'})
 
  // relation de la table reservation 
  DB.reservation_tarnsport.hasMany(DB.reservation,{foreignkey:'transport'})
@@ -77,8 +81,21 @@ DB.reservation = require('./reservationModale')(db, DataTypes)
  DB.client.hasMany(DB.reservation,{foreignkey:'client'})
  DB.reservation.belongsTo(DB.client,{foreignkey:'client'})
 
+// relation de la table chambre
+DB.hotel.hasMany(DB.chambre,{foreignkey:'hotel'})
+DB.chambre.belongsTo(DB.hotel,{foreignkey:'hotel'})
+DB.client.belongsTo(DB.chambre,{foreignkey:'hotel'})
+DB.chambre.hasMany(DB.client,{foreignkey:'hotel'})
 
- DB.sequelize.sync({ force: false })
+// relation table reservation hotel
+DB.reservation.belongsTo(DB.hotel,{foreignkey:'hotel'})
+DB.hotel.hasMany(DB.reservation_hotel,{foreignkey:'hotel'})
+DB.user.hasMany(DB.reservation_hotel,{foreignkey:'id_user'})
+DB.reservation_hotel.belongsTo(DB.user,{foreignkey:'id_user'})
+
+
+
+DB.sequelize.sync({ force: false })
 .then(() => {
     console.log('yes re-sync done!')
 })
