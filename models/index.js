@@ -56,8 +56,8 @@ DB.reservation_hotel = require('./reservationhotelModel')(db, DataTypes)
  DB.reservation_evenement.belongsTo(DB.user,{foreignkey:'id_user'})//relation entre table reservation_evenement et user 
 
  //relation table client
-//  DB.client.belongsTo(DB.reservation_bus,{foreignkey:'id_evenement'})//relation entre table client et reservation bus 
-//  DB.reservation_bus.hasMany(DB.client,{foreignkey:'id_evenement'})//relation entre table client et reservation bus
+  DB.client.belongsTo(DB.user,{foreignkey:'id_user'})
+  DB.user.hasMany(DB.client,{foreignkey:'id_user'})
 //  DB.client.belongsTo(DB.reservation_evenement,{foreignkey:'id_evenements'})//relation entre table client et reservation evenement 
 //  DB.reservation_evenement.hasMany(DB.client,{foreignkey:'id_evenements'})//relation entre table reservation evenement et client 
 
@@ -80,6 +80,8 @@ DB.reservation_hotel = require('./reservationhotelModel')(db, DataTypes)
  DB.reservation.belongsTo(DB.reservation_evenement,{foreignkey:'event'})
  DB.client.hasMany(DB.reservation,{foreignkey:'client'})
  DB.reservation.belongsTo(DB.client,{foreignkey:'client'})
+ DB.reservation_hotel.hasMany(DB.reservation,{foreignkey:'hotel'})
+ DB.reservation.belongsTo(DB.reservation_hotel,{foreignkey:'hotel'})
 
 // relation de la table chambre
 DB.hotel.hasMany(DB.chambre,{foreignkey:'hotel'})
@@ -88,10 +90,10 @@ DB.client.belongsTo(DB.chambre,{foreignkey:'hotel'})
 DB.chambre.hasMany(DB.client,{foreignkey:'hotel'})
 
 // relation table reservation hotel
-DB.reservation.belongsTo(DB.hotel,{foreignkey:'hotel'})
-DB.hotel.hasMany(DB.reservation_hotel,{foreignkey:'hotel'})
-DB.user.hasMany(DB.reservation_hotel,{foreignkey:'id_user'})
-DB.reservation_hotel.belongsTo(DB.user,{foreignkey:'id_user'})
+// DB.reservation.belongsTo(DB.hotel,{foreignkey:'hotel'})
+// DB.hotel.hasMany(DB.reservation_hotel,{foreignkey:'hotel'})
+// DB.user.hasMany(DB.reservation_hotel,{foreignkey:'id_user'})
+// DB.reservation_hotel.belongsTo(DB.user,{foreignkey:'id_user'})
 
 
 

@@ -76,7 +76,7 @@ const deleteevenement=async(req,res)=>{
     let id=req.params.id
     const evenement=await Evenement.findOne({where:{id:id}})
     if(evenement)
-    {   fs.unlinkSync(JSON.parse(evenement.image_evenement))
+    {   fs.unlinkSync(evenement.image_evenement)
         await Evenement.destroy({where:{id:id}})
         res.status(200).send("hotel deleted")
     }else{

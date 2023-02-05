@@ -62,6 +62,16 @@ module.exports=(Sequelize,DataTypes)=>{
           }
         }
        },
+       nb_place_reserver:{
+        type:DataTypes.INTEGER,
+        allowNull:true,
+        defaultValue:0,
+        validate:{
+          isInt: {
+            msg: "Must be an integer number of pennies"
+          }
+        }
+     },
        porcentage_chambre_triple:{
         type:DataTypes.FLOAT,
         validate:{
