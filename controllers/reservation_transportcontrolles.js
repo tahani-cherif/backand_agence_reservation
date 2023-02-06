@@ -20,10 +20,7 @@ const reservation_tarnsportpost=async(req,res)=>
     //   :await Avion.findOne({where:{id:body.id_transport}}).then(res => res.dataValues).catch(err=>console.log(err))
     let data=body.type==="bus" ? await Bus.findOne({where:{id:body.id_transport}}).then(secc=>secc?.dataValues).catch(err=>res.status(404).send(err))
     : await Avion.findOne({where:{id:body.id_transport}}).then(secc=>secc?.dataValues).catch(err=>res.status(404).send(err))
-    console.log("test")
-    console.log(data)
     if(data!=null){
-        console.log("test2") 
     if(Number(data.nb_place_reserver)+Number(body.nb_place)<=Number(data.nb_place)) // test sur nombre de place disponible
     {   
         let nouv_nb_place_reserver={nouveau_nb_place:Number(data.nb_place_reserver)+Number(body.nb_place)};
@@ -39,9 +36,8 @@ const reservation_tarnsportpost=async(req,res)=>
            body.solde=Number(body.monatnt_total)
            user.solde=Number(user.solde)-Number(body.monatnt_total)
            body.credit=0
-            await User.update(user,{where:{id:body.userId}})
-            let reservation=await Reservation_tarnsport.create(body)  // creation une reservation bus
-            res.status(200).send(reservation) }
+            let reservation=await Reservation_tarnsport.create(body).then(async(secc)=> await User.update(user,{where:{id:body.userId}}).catch((err)=>res.status(404).send(err)))  // creation une reservation bus
+            res.status(200).send({message:"reservation cree"}) }
         else{
             const reste=Number(body.monatnt_total)-Number(user.solde)
             console.log(Number(user.credit)-reste)
@@ -51,14 +47,11 @@ const reservation_tarnsportpost=async(req,res)=>
                 user.solde=0
                 user.credit=Number(user.credit)-reste
                 body.credit=reste
-                await User.update(user,{where:{id:body.userId}})
-            //     body.type==="bus"? await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${body.id_transport}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
-            //   : await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/avion/updateavionnbplacereserver/${body.id_transport}`,nouv_nb_place_reserver)
             data.nb_place_reserver=Number(data.nb_place_reserver)+Number(body.nb_place)
             body.type==="bus"? await Bus.update(data,{where:{id:body.id_transport}})
             :await Avion.update(data,{where:{id:body.id_transport}})   
-            let reservation=await Reservation_tarnsport.create(body)  // creation une reservation bus
-                res.status(200).send(reservation)
+            let reservation=await Reservation_tarnsport.create(body).then(async(secc)=> await User.update(user,{where:{id:body.userId}}).catch((err)=>res.status(404).send(err)))  // creation une reservation bus
+                res.status(200).send({message:"reservation cree"})
              }else{
                 res.status(404).send("solde et credit insefisent")
              }
@@ -176,8 +169,6 @@ const deletereservationtarnsport=async(req,res) => {
             data.nb_place_reserver=nb_total
             reservation.type==="bus"? await Bus.update(data,{where:{id:reservation.id_transport}})
             :await Avion.update(data,{where:{id:reservation.id_transport}}) 
-            // reservation.type==="bus"? await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/bus/updatebusnbplacereserver/${reservation.id_transport}`,nouv_nb_place_reserver)// update nombre de place reserver d'une bus
-            // : await axios.put(`${process.env.NEXT_PUBLIC_BACK_RESERVATION_AGENCE}/api/avion/updateavionnbplacereserver/${reservation.id_transport}`,nouv_nb_place_reserver)
             let user=await User.findOne({where: {id:reservation.userId}}).then((res)=>res.dataValues).catch((err)=> res.status(404).send(err))
             user.credit=Number(reservation.credit)+Number(user.credit)
             user.solde=Number(reservation.solde)+Number(user.solde)
