@@ -69,18 +69,6 @@ module.exports=(Sequelize,DataTypes)=>{
             }
           }
          },
-         prix_place_speciale:{
-          type:DataTypes.FLOAT,
-          allowNull:false,
-          validate:{
-            isFloat: {
-              msg: "Must be an float number of pennies"
-            },
-            notNull: {
-              msg: 'Please enter your nombre place'
-            }
-          }
-         },
         date_debut:{
             type:DataTypes.DATE,
             allowNull:false,
