@@ -39,6 +39,24 @@ module.exports=(Sequelize,DataTypes)=>{
             }
           }
          },
+         date_debut:{
+          type:DataTypes.DATE,
+          allowNull:false,
+          validate:{
+            notNull: {
+              msg: 'Please enter your date before'
+            }
+          }
+         },
+      date_fin:{
+          type:DataTypes.DATE,
+          allowNull:false,
+          validate:{
+            notNull: {
+              msg: 'Please enter your date end'
+            }
+          }
+         },
     });
     return reservation
 }
