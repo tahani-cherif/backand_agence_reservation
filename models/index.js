@@ -42,6 +42,7 @@ DB.programme = require('./programme')(db, DataTypes)
 DB.reservation = require('./reservationModale')(db, DataTypes)
 DB.chambre = require('./chambreModel')(db, DataTypes)
 DB.reservation_hotel = require('./reservationhotelModel')(db, DataTypes)
+DB.reservation_client_transport=require('./reservation_client_transport')(db, DataTypes)
 
 //relation entre les tableau
 
@@ -89,11 +90,12 @@ DB.chambre.belongsTo(DB.hotel,{foreignkey:'hotel'})
 DB.client.belongsTo(DB.chambre,{foreignkey:'hotel'})
 DB.chambre.hasMany(DB.client,{foreignkey:'hotel'})
 
-// relation table reservation hotel
-// DB.reservation.belongsTo(DB.hotel,{foreignkey:'hotel'})
-// DB.hotel.hasMany(DB.reservation_hotel,{foreignkey:'hotel'})
-// DB.user.hasMany(DB.reservation_hotel,{foreignkey:'id_user'})
-// DB.reservation_hotel.belongsTo(DB.user,{foreignkey:'id_user'})
+// relation reservation client transport
+
+DB.reservation_client_transport.belongsTo(DB.client,{foreignkey:'client'})
+DB.client.hasMany(DB.reservation_client_transport,{foreignkey:'client'})
+DB.reservation_client_transport.belongsTo(DB.reservation_tarnsport,{foreignkey:'transport'})
+DB.reservation_tarnsport.belongsTo(DB.reservation_client_transport,{foreignkey:'transport'})
 
 
 
