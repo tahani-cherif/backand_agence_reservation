@@ -16,6 +16,8 @@ const postbus=async(req,res)=>
     let bus=await Bus.create(body)
     res.status(200).send(bus)
 }
+
+
 // return bus by id
 const getbus=async(req,res)=>
 {
