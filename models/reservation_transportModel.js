@@ -2,7 +2,27 @@ const {Sequelize,DataTypes}=require('sequelize');
 
 module.exports=(Sequelize,DataTypes)=>{
    
-    const reservation_evenement=Sequelize.define('reservation_evenement',{
+    const reservation_tarnsport=Sequelize.define('reservation_tarnsport',{
+      type:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        validate:{
+        notNull: {
+          msg: 'Please enter your nb place'
+        }}
+      },
+      id_transport:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        validate:{
+          isInt: {
+            msg: "Must be an integer number of pennies"
+          },
+          notNull: {
+            msg: 'Please enter your id_transport'
+          }
+        }
+     },
         nb_place:{
            type:DataTypes.INTEGER,
            allowNull:false,
@@ -29,9 +49,23 @@ module.exports=(Sequelize,DataTypes)=>{
          },
          solde:{
           type:DataTypes.FLOAT,
-          },
+          allowNull:false,
+          validate:{
+            isFloat: {
+              msg: "Must be an float number of pennies"
+            },
+            notNull: {
+                msg: 'Please enter your solde'
+              }
+          }
+         },
          credit:{
           type:DataTypes.FLOAT,
+          validate:{
+            isFloat: {
+              msg: "Must be an float number of pennies"
+            }
+          }
          },
         date_debut:{
             type:DataTypes.DATE,
@@ -52,5 +86,5 @@ module.exports=(Sequelize,DataTypes)=>{
             }
            },
     });
-    return reservation_evenement
+    return reservation_tarnsport
 }

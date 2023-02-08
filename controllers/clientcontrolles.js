@@ -12,7 +12,7 @@ const getallclient=async(req,res)=>
 const postclient=async(req,res)=>
 {
     const body=req.body
-    let client=await Client.create(body)
+    let client=await Client.create(body).catch(err=>res.status(404).send(err))
     res.status(200).send(client)
 }
 
@@ -21,6 +21,17 @@ const getclient=async(req,res)=>
 {
    let id=req.params.id
    const client=await Client.findOne({where:{id:id}})
+   if(client)
+   {
+    res.status(200).send(client)
+   }else{
+       res.status(404).send("client not found")
+   }
+}
+//get client by mail
+const getclientbymail=async(req,res)=>
+{
+   const client=await Client.findOne({where:{e_mail:req.body.e_mail}}).catch(err=>res.status(404).send(err))
    if(client)
    {
     res.status(200).send(client)
@@ -46,5 +57,6 @@ module.exports={
     getallclient,
     postclient,
     getclient,
-    deletclient
+    deletclient,
+    getclientbymail
 }

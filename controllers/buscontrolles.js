@@ -13,7 +13,7 @@ const getallbus=async(req,res)=>
 const postbus=async(req,res)=>
 {
     const body=req.body
-    let bus=await Bus.create(body)
+    let bus=await Bus.create(body).catch(err=>res.status(404).send(err));
     res.status(200).send(bus)
 }
 
@@ -39,7 +39,7 @@ const updatebus=async(req,res)=>{
         res.status(200).send(bus)
     }else
     {
-        res.status(404).send("Hotel not found")
+        res.status(404).send("bus not found")
     }
      
 }
@@ -58,7 +58,7 @@ const updatebusnbplacereserver=async(req,res)=>{
         res.status(200).send(data)
     }else
     {
-        res.status(404).send("Hotel not found")
+        res.status(404).send("bus not found")
     }
      
 }
@@ -71,9 +71,9 @@ const deletebus=async(req,res)=>{
     if(bus)
     {
         await Bus.destroy({where:{id:id}})
-        res.status(200).send("hotel deleted")
+        res.status(200).send("bus deleted")
     }else{
-        res.status(404).send("Hotel not found")
+        res.status(404).send("bus not found")
     }
 
 }

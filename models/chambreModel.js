@@ -2,8 +2,16 @@ const {Sequelize,DataTypes}=require('sequelize');
 
 module.exports=(Sequelize,DataTypes)=>{
    
-    const reservation_bus=Sequelize.define('reservation_bus',{
-        nb_place:{
+    const chambre=Sequelize.define('chambre',{
+        type:{
+            type:DataTypes.STRING,
+            allowNull:false,
+            validate:{
+            notNull: {
+                msg: 'Please enter your non avion'
+              }}
+        },
+     nb_place:{
            type:DataTypes.INTEGER,
            allowNull:false,
            validate:{
@@ -11,22 +19,19 @@ module.exports=(Sequelize,DataTypes)=>{
                msg: "Must be an integer number of pennies"
              },
              notNull: {
-               msg: 'Please enter your nb place'
+               msg: 'Please enter your nombre place'
              }
            }
         },
-        monatnt_total:{
+        montant:{
           type:DataTypes.FLOAT,
           allowNull:false,
           validate:{
-            isFloat: {
-              msg: "Must be an float number of pennies"
-            },
             notNull: {
-                msg: 'Please enter your adress'
-              }
+              msg: 'Please enter your MT'
+            }
           }
-         },
+       },
         date_debut:{
             type:DataTypes.DATE,
             allowNull:false,
@@ -46,5 +51,5 @@ module.exports=(Sequelize,DataTypes)=>{
             }
            },
     });
-    return reservation_bus
+    return chambre
 }

@@ -1,3 +1,4 @@
+const fs= require('fs')
 const db=require('../models')
 const Evenement=db.evenement
 
@@ -13,10 +14,18 @@ const getallevenement=async(req,res)=>
 const postevenement=async(req,res)=>
 {
     const body=req.body
-    
-    let evenement=await Evenement.create(body)
+    const data={
+        nom_evenement:body.nom_evenement,
+        description:body.description,
+        nb_place:body.nb_place,
+        nb_place_reserver:body.nb_place_reserver,
+        prix_evenement:body.prix_evenement,
+        date_debut:body.date_debut,
+        date_fin:body.date_fin,
+        image_evenement:req.file.path
+    }
+    let evenement=await Evenement.create(data)
     res.status(200).send(evenement)
-    console.log(evenement)
 }
 // return evenement by id
 const getevenement=async(req,res)=>
@@ -67,7 +76,7 @@ const deleteevenement=async(req,res)=>{
     let id=req.params.id
     const evenement=await Evenement.findOne({where:{id:id}})
     if(evenement)
-    {
+    {   fs.unlinkSync(evenement.image_evenement)
         await Evenement.destroy({where:{id:id}})
         res.status(200).send("hotel deleted")
     }else{
@@ -83,9 +92,12 @@ const deleteevenements=async(req,res)=>{
     let tabverif=[]
     let message
     tabId.map(async(item)=>{
+        console.log(String(evenement.image_evenement).substring(1,String(evenement.image_evenement).length-1))
         const evenement=await Evenement.findOne({where:{id:item}})
+        
         if(evenement)
-        {   
+        {   let x=String(evenement.image_evenement).substring(1,String(evenement.image_evenement).length-1)
+             fs.unlinkSync(x)
             await Evenement.destroy({where:{id:item}})
              message="bus deleted "+item
              tabverif.push(message)

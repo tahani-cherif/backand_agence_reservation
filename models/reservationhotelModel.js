@@ -2,7 +2,7 @@ const {Sequelize,DataTypes}=require('sequelize');
 
 module.exports=(Sequelize,DataTypes)=>{
    
-    const reservation_evenement=Sequelize.define('reservation_evenement',{
+    const reservation_hotel=Sequelize.define('reservation_hotel',{
         nb_place:{
            type:DataTypes.INTEGER,
            allowNull:false,
@@ -52,5 +52,5 @@ module.exports=(Sequelize,DataTypes)=>{
             }
            },
     });
-    return reservation_evenement
+    return reservation_hotel
 }

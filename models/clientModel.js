@@ -13,13 +13,19 @@ module.exports=(Sequelize,DataTypes)=>{
         },
         e_mail:{
             type:DataTypes.STRING,
-            isUnique :true,
-            allowNull:false,
             validate:{
-             isEmail : true,
-             notNull: {
-              msg: 'Please enter your e_mail'
-            }}},
+             isEmail : true,}
+            },
+        cin:{
+              type:DataTypes.BIGINT,
+              unique: true,
+              allowNull:false,
+              validate:{
+                notNull: {
+                   msg: 'Please enter your date naissance'
+                   }
+                   }
+            },
         numero_telephone : {
             type:DataTypes.BIGINT,
              allowNull:false,
@@ -37,33 +43,6 @@ module.exports=(Sequelize,DataTypes)=>{
                 }
                 }
                },
-        montant_hotel:{
-          type:DataTypes.FLOAT,
-          allowNull:true,
-          validate:{
-            isFloat: {
-              msg: "Must be an float number of pennies"
-            }
-          }
-         },
-         montant_bus:{
-            type:DataTypes.FLOAT,
-            allowNull:true,
-            validate:{
-              isFloat: {
-                msg: "Must be an float number of pennies"
-              }
-            }
-           },
-           montant_evenement:{
-            type:DataTypes.FLOAT,
-            allowNull:true,
-            validate:{
-              isFloat: {
-                msg: "Must be an float number of pennies"
-              }
-            }
-           },
        
     });
     return client

@@ -2,24 +2,40 @@ const {Sequelize,DataTypes}=require('sequelize');
 
 module.exports=(Sequelize,DataTypes)=>{
    
-    const evenement=Sequelize.define('evenement',{
-        nom_evenement:{
+    const avion=Sequelize.define('avion',{
+        nom_avion:{
             type:DataTypes.STRING,
             allowNull:false,
             validate:{
             notNull: {
-                msg: 'Please enter your name evenement'
+                msg: 'Please enter your non avion'
               }}
         },
-        description:{
+        reference:{
             type:DataTypes.STRING,
             allowNull:false,
             validate:{
                 notNull: {
-                    msg: 'Please enter your description'
+                    msg: 'Please enter your reference'
                   }}
         },
-        nb_place:{
+        point_depart:{
+          type:DataTypes.STRING,
+          allowNull:false,
+          validate:{
+          notNull: {
+              msg: 'Please enter your point_depart'
+            }}
+      },
+      point_arrive:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        validate:{
+        notNull: {
+            msg: 'Please enter your point_arrive'
+          }}
+    },
+     nb_place:{
            type:DataTypes.INTEGER,
            allowNull:false,
            validate:{
@@ -41,7 +57,7 @@ module.exports=(Sequelize,DataTypes)=>{
             }
           }
        },
-        prix_evenement:{
+        prix_place_simple:{
           type:DataTypes.FLOAT,
           allowNull:false,
           validate:{
@@ -49,11 +65,11 @@ module.exports=(Sequelize,DataTypes)=>{
               msg: "Must be an float number of pennies"
             },
             notNull: {
-              msg: 'Please enter your price evenement'
+              msg: 'Please enter your nombre place'
             }
           }
          },
-         date_debut:{
+        date_debut:{
             type:DataTypes.DATE,
             allowNull:false,
             validate:{
@@ -71,9 +87,6 @@ module.exports=(Sequelize,DataTypes)=>{
               }
             }
            },
-        image_evenement:{
-          type:DataTypes.JSON
-        }
     });
-    return evenement
+    return avion
 }
