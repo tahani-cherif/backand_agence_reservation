@@ -43,6 +43,9 @@ DB.reservation = require('./reservationModale')(db, DataTypes)
 DB.chambre = require('./chambreModel')(db, DataTypes)
 DB.reservation_hotel = require('./reservationhotelModel')(db, DataTypes)
 DB.reservation_client_transport=require('./reservation_client_transport')(db, DataTypes)
+DB.reservation_client_event=require('./reservation_client_event')(db, DataTypes)
+DB.reservation_client_hotel=require('./reservation_client_HOTEL')(db, DataTypes)
+DB.reservation_client_programme=require('./reservation_client_programme')(db, DataTypes)
 
 //relation entre les tableau
 
@@ -74,21 +77,26 @@ DB.reservation_client_transport=require('./reservation_client_transport')(db, Da
  DB.programme.belongsTo(DB.hotel,{foreignkey:'id_hotel'})
  DB.hotel.hasMany(DB.programme,{foreignkey:'id_hotel'})
 
- // relation de la table reservation 
- DB.reservation_tarnsport.hasMany(DB.reservation,{foreignkey:'transport'})
- DB.reservation.belongsTo(DB.reservation_tarnsport,{foreignkey:'transport'})
- DB.reservation_evenement.hasMany(DB.reservation,{foreignkey:'event'})
- DB.reservation.belongsTo(DB.reservation_evenement,{foreignkey:'event'})
- DB.client.hasMany(DB.reservation,{foreignkey:'client'})
- DB.reservation.belongsTo(DB.client,{foreignkey:'client'})
- DB.reservation_hotel.hasMany(DB.reservation,{foreignkey:'hotel'})
- DB.reservation.belongsTo(DB.reservation_hotel,{foreignkey:'hotel'})
+ // relation de la table reservation  programme
+ DB.reservation_tarnsport.hasMany(DB.reservation_client_programme,{foreignkey:'transport'})
+ DB.reservation_client_programme.belongsTo(DB.reservation_tarnsport,{foreignkey:'transport'})
+ DB.reservation_evenement.hasMany(DB.reservation_client_programme,{foreignkey:'event'})
+ DB.reservation_client_programme.belongsTo(DB.reservation_evenement,{foreignkey:'event'})
+ DB.client.hasMany(DB.reservation_client_programme,{foreignkey:'client'})
+ DB.reservation_client_programme.belongsTo(DB.client,{foreignkey:'client'})
+ DB.reservation_hotel.hasMany(DB.reservation_client_programme,{foreignkey:'hotel'})
+ DB.reservation_client_programme.belongsTo(DB.reservation_hotel,{foreignkey:'hotel'})
+ DB.programme.hasMany(DB.reservation_client_programme,{foreignkey:'hotel'})
+ DB.reservation_client_programme.belongsTo(DB.programme,{foreignkey:'hotel'})
 
 // relation de la table chambre
 DB.hotel.hasMany(DB.chambre,{foreignkey:'hotel'})
 DB.chambre.belongsTo(DB.hotel,{foreignkey:'hotel'})
 DB.client.belongsTo(DB.chambre,{foreignkey:'hotel'})
 DB.chambre.hasMany(DB.client,{foreignkey:'hotel'})
+// relation table reservation hotel
+DB.hotel.hasMany(DB.reservation_hotel,{foreignkey:'hotel'})
+DB.reservation_hotel.belongsTo(DB.hotel,{foreignkey:'hotel'})
 
 // relation reservation client transport
 
@@ -97,6 +105,16 @@ DB.client.hasMany(DB.reservation_client_transport,{foreignkey:'client'})
 DB.reservation_client_transport.belongsTo(DB.reservation_tarnsport,{foreignkey:'transport'})
 DB.reservation_tarnsport.belongsTo(DB.reservation_client_transport,{foreignkey:'transport'})
 
+//  relation table client event
+ DB.reservation_client_event.belongsTo(DB.client,{foreignkey:'client'})
+ DB.client.hasMany(DB.reservation_client_event,{foreignkey:'client'})
+ DB.reservation_evenement.hasMany(DB.reservation_client_event,{foreignkey:'event'})
+ DB.reservation_client_event.belongsTo(DB.reservation_evenement,{foreignkey:'event'})
+ //  relation table client hotel
+ DB.reservation_client_hotel.belongsTo(DB.client,{foreignkey:'client'})
+ DB.client.hasMany(DB.reservation_client_hotel,{foreignkey:'client'})
+ DB.reservation_hotel.hasMany(DB.reservation_client_hotel,{foreignkey:'hotel'})
+ DB.reservation_client_hotel.belongsTo(DB.reservation_hotel,{foreignkey:'hotel'})
 
 
 DB.sequelize.sync({ force: false })
