@@ -29,8 +29,11 @@ const reservation_evenementpost=async(req,res)=>
             body.solde=Number(body.monatnt_total)
             user.solde=Number(user.solde)-Number(body.monatnt_total)
             body.credit=0
-            let reservation=await reservation_evenement.create(body).then(async(secc)=>await User.update(user,{where:{id:body.userId}}) ).catch((err)=>res.status(404).send(err))  // creation une reservation evenement
-            res.status(200).send({message:"reservation cree"})}
+            let id
+            let reservation=await reservation_evenement.create(body).then(async(secc)=>{
+                id=secc.dataValues.id
+                await User.update(user,{where:{id:body.userId}})} ).catch((err)=>res.status(404).send(err))  // creation une reservation evenement
+            res.status(200).send({id:id,message:"solde et credit insefisent"})}
         else{
             const reste=Number(body.monatnt_total)-Number(user.solde)
             body.solde=Number(user.solde)
@@ -41,8 +44,11 @@ const reservation_evenementpost=async(req,res)=>
                 body.credit=reste
                 data.nb_place_reserver=Number(data.nb_place_reserver)+Number(body.nb_place)
                 await Evenement.update(data,{where:{id:body.evenementId}}).catch((err)=>res.status(404).send(err))
-               let reservation=await reservation_evenement.create(body).then(async(secc)=>await User.update(user,{where:{id:body.userId}}) ).catch((err)=>res.status(404).send(err))  // creation une reservation evenement
-               res.status(200).send({message:"reservation cree"})
+                let id
+                let reservation=await reservation_evenement.create(body).then(async(secc)=>{
+                    id=secc.dataValues.id
+                    await User.update(user,{where:{id:body.userId}})} ).catch((err)=>res.status(404).send(err))  // creation une reservation evenement
+               res.status(200).send({id:id,message:"solde et credit insefisent"})
         }else{
             res.status(404).send({message:"solde et credit insefisent"})
         }

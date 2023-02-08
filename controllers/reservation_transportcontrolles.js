@@ -36,8 +36,11 @@ const reservation_tarnsportpost=async(req,res)=>
            body.solde=Number(body.monatnt_total)
            user.solde=Number(user.solde)-Number(body.monatnt_total)
            body.credit=0
-            let reservation=await Reservation_tarnsport.create(body).then(async(secc)=> await User.update(user,{where:{id:body.userId}}).catch((err)=>res.status(404).send(err)))  // creation une reservation bus
-            res.status(200).send({message:"reservation cree"}) }
+           let id
+            let reservation=await Reservation_tarnsport.create(body).then(async(secc)=>{
+                  id=secc.dataValues.id
+                 await User.update(user,{where:{id:body.userId}})}).catch((err)=>res.status(404).send(err))  // creation une reservation bus
+            res.status(200).send({id:id,message:"reservation cree"}) }
         else{
             const reste=Number(body.monatnt_total)-Number(user.solde)
             console.log(Number(user.credit)-reste)
@@ -50,8 +53,11 @@ const reservation_tarnsportpost=async(req,res)=>
             data.nb_place_reserver=Number(data.nb_place_reserver)+Number(body.nb_place)
             body.type==="bus"? await Bus.update(data,{where:{id:body.id_transport}})
             :await Avion.update(data,{where:{id:body.id_transport}})   
-            let reservation=await Reservation_tarnsport.create(body).then(async(secc)=> await User.update(user,{where:{id:body.userId}}).catch((err)=>res.status(404).send(err)))  // creation une reservation bus
-                res.status(200).send({message:"reservation cree"})
+            let id
+            let reservation=await Reservation_tarnsport.create(body).then(async(secc)=> {
+                id=secc.dataValues.id
+                await User.update(user,{where:{id:body.userId}})}).catch((err)=>res.status(404).send(err)) // creation une reservation bus
+                res.status(200).send({id:id,message:"reservation cree"})
              }else{
                 res.status(404).send("solde et credit insefisent")
              }
