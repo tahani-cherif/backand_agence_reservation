@@ -1,6 +1,6 @@
 const db=require('../models')
 const reservation_client_event=db.reservation_client_event
-
+const reservation_evenement=db.reservation_evenement
 //return tous les bus ajouter a partire admin
 const getallRCE=async(req,res)=>
 {   
@@ -35,6 +35,17 @@ const deleteRCE=async(req,res)=>{
     }
 
 }
+const countclient=async(req,res)=>{
+    let id=req.params.id
+    const reservationevent=await reservation_evenement.findOne({where:{id:id}}).then(secc=>secc?.dataValues).catch(err=> res.satuts(404).send(err))
+   if(reservationevent)
+   { const reserationclientevent=await reservation_client_event.count({where:{reservationEvenementId:id}})
+     nb=reservationevent.nb_place-reserationclientevent
+     res.status(200).send({nombre:nb})}
+   else{
+    res.status(200).send({message:"reservation not found"})
+   }
+}
 
 
 
@@ -43,6 +54,7 @@ module.exports={
     getallRCE,
     postRCE,
     getRCE,
-    deleteRCE
+    deleteRCE,
+    countclient
  
  }
