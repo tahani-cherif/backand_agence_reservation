@@ -15,6 +15,12 @@ module.exports=(Sequelize,DataTypes)=>{
              }
            }
         },
+        nom_agence:{
+          type:DataTypes.STRING,
+         },
+         nom_evenement:{
+          type:DataTypes.STRING,
+         },
         monatnt_total:{
           type:DataTypes.FLOAT,
           allowNull:false,
