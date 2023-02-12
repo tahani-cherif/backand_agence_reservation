@@ -103,7 +103,7 @@ const getreservationevenementbyid=async(req,res)=>{
 
 const getallreservationevenementbyuser=async(req,res)=>{
     let id=req.params.id
-    const reservation=await reservation_evenement.findAll({where:{evenementUserId:id}})
+    const reservation=await reservation_evenement.findAll({where:{userId:id}})
     res.status(200).send(reservation)
 }
 

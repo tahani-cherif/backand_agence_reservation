@@ -84,7 +84,11 @@ const postreservationhotel=async(req,res)=>
         res.status(404).send({message:"hotel not found"})
      }
 }
-
+const getallreservationhotelbyuser=async(req,res)=>{
+   let id=req.params.id
+   const reservation=await reservation_hotel.findAll({where:{userId:id}})
+   res.status(200).send(reservation)
+}
 const updatereservationhotel=async(req,res)=>{
     let id=req.params.id
     let body=req.body
@@ -179,6 +183,7 @@ module.exports={
     getallreserhotelt,
     postreservationhotel,
     deletereservationhotel,
-    updatereservationhotel
+    updatereservationhotel,
+    getallreservationhotelbyuser
 
  }
