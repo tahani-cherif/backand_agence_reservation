@@ -25,6 +25,13 @@
         }
       }
     },
+    "/countAvion": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/getoneavion/{id}": {
       "get": {
         "description": "",

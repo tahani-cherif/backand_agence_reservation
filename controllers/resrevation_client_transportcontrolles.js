@@ -48,6 +48,7 @@ const countclient=async(req,res)=>{
    }
 }
 
+const countreservation_client_transport=async()=> await reservation_client_transport.count();
 
 
 
@@ -56,6 +57,7 @@ module.exports={
     postRCT,
     getRCT,
     deleteRCT,
+    countreservation_client_transport,
     countclient
  
  }

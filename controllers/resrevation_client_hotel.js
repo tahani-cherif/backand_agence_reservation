@@ -49,12 +49,13 @@ const countclient=async(req,res)=>{
    }
 }
 
-
+const countreservation_client_hotel=async()=> await reservation_client_hotel.count();
 module.exports={
     getallRCH,
     postRCH,
     getRCH,
     deleteRCH,
+    countreservation_client_hotel,
     countclient
  
  }

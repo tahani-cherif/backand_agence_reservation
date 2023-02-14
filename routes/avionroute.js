@@ -2,6 +2,7 @@ const avioncontroller=require("../controllers/avioncontrolles")
 const router=require("express").Router()
 
 router.get('/getallavion',avioncontroller.getallavion)
+router.get('/countAvion',avioncontroller.countAvion)
 router.get('/getoneavion/:id',avioncontroller.getavion)
 router.post('/addavion',avioncontroller.postavion)
 router.put('/updateavion/:id',avioncontroller.updateavion)

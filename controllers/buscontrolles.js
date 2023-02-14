@@ -102,6 +102,8 @@ const deletebuss=async(req,res)=>{
 
 }
 
+const countBus=async()=> await Bus.count();
+
 
 module.exports={
     getallbus,
@@ -110,6 +112,7 @@ module.exports={
     updatebus,
     deletebus,
     deletebuss,
+    countBus,
     updatebusnbplacereserver
  
  }

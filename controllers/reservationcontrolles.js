@@ -91,10 +91,11 @@ const resrvation_tab=async(req,res)=>
      }
     }
 
-
+const countreservation=async()=> await reservation.count();
 
 
 module.exports={
     getallresv,
-    resrvation_tab
+  resrvation_tab,
+    countreservation
  }

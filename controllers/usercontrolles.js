@@ -94,11 +94,14 @@ const deleteuser=async(req,res)=>{
 
 }
 
+const countUser=async()=> await User.count();
+
 module.exports={
     getAllAgence,
     postAgence,
     updateAgence,
     getuser,
     loginAgence,
+    countUser,
     deleteuser
 }

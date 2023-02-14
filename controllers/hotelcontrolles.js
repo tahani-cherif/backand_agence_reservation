@@ -166,12 +166,13 @@ const deletehotels=async(req,res)=>{
       }, "1000")
 
 }
-
+const countHotel=async()=> await Hotel.count();
 module.exports={
     getallhotel,
     posthotels,
     gethotel,
     updatehotel,
     deletehotel,
+    countHotel,
     deletehotels
  }

@@ -24,10 +24,11 @@ const getchambre=async(req,res)=>
    res.status(200).send(chambre)
 }
 
-
+const countChambre=async()=> await Chambre.count();
 module.exports={
 getallchambre,
 getchambre,
+countChambre,
 postchambre
  
  }
