@@ -9,7 +9,7 @@ router.get('/getagence/:id',agenceController.getuser)
 router.put('/updateAgence/:id',agenceController.updateAgence)
 router.post('/loginAgence',agenceController.loginAgence)
 router.delete('/detleteuser/:id',agenceController.deleteuser)
-router.get('/test',agenceAuth.authAgence,agenceController.checkAuth)
+// router.get('/test',agenceAuth.authAgence,agenceController.checkAuth)
 
 
 module.exports=router
