@@ -24,7 +24,10 @@ module.exports=(Sequelize,DataTypes)=>{
             },
             len: { args: 5, msg: 'password length must be more than 5 characters' }
         }
-       }  },
+       },
+       tokens:{
+        type:DataTypes.STRING,
+       },     },
 )
 admin.sync({ alter: true })
   return admin
