@@ -17,7 +17,8 @@ const postreservationhotel=async(req,res)=>
     console.log(data)
     if(data)
     {if((Number(data.nb_place_reserver)+Number(body.nb_place))<=Number(data.capacite))
-     {  let nouv_nb_place_reserver={nouveau_nb_place:Number(data.nb_place_reserver)+Number(body.nb_place)};
+     {
+      let nouv_nb_place_reserver={nouveau_nb_place:Number(data.nb_place_reserver)+Number(body.nb_place)};
         let user=await User.findOne({where:{id:body.userId}}).then((res)=>res.dataValues)
         if(Number(user.solde)-Number(body.monatnt_total)>=0)
         {
@@ -28,7 +29,20 @@ const postreservationhotel=async(req,res)=>
             user.solde=Number(user.solde)-Number(body.monatnt_total)
             body.credit=0
             let id
-            let reservation=await reservation_hotel.create(body).then(async(secc)=>{
+            console.log("test",data)
+            const datahotel ={
+               nb_place:body.nb_place,
+               monatnt_total:body.monatnt_total,
+               date_debut:body.date_debut,
+               date_fin:body.date_fin,
+               hotelId:body.hotelId,
+               userId:body.userId,
+               nom_agence:user.nom_agence,
+               nom_hotel:data.nom_hotel,
+               credit:body.credit,
+               solde:body.solde
+            }
+            let reservation=await reservation_hotel.create(datahotel).then(async(secc)=>{
                 id=secc.dataValues.id
                 await User.update(user,{where:{id:body.userId}})} ).catch((err)=>res.status(404).send(err))
             res.status(200).send({id:id,message:"reservation cree"})
@@ -43,12 +57,25 @@ const postreservationhotel=async(req,res)=>
                 data.nb_place_reserver=Number(data.nb_place_reserver)+Number(body.nb_place)
                 await Hotel.update(data,{where:{id:body.hotelId}})
                 let id
-                await reservation_hotel.create(body).then(async(secc)=>{
+                console.log(user.nom_agence,data.nom_hotel)
+                const datahotel ={
+                  nb_place:body.nb_place,
+                  monatnt_total:body.monatnt_total,
+                  date_debut:body.date_debut,
+                  date_fin:body.date_fin,
+                  hotelId:body.hotelId,
+                  userId:body.userId,
+                  nom_agence:user.nom_agence,
+                  nom_hotel:data.nom_hotel,
+                  credit:body.credit,
+                  solde:body.solde
+               }
+                await reservation_hotel.create(datahotel).then(async(secc)=>{
                     id=secc.dataValues.id
                     await User.update(user,{where:{id:body.userId}})} ).catch((err)=>res.status(404).send(err))  
                 res.status(200).send({message:"reservation cree"})
         }else{
-            res.status(404).send({id:id,message:"solde et credit insefisent"})
+            res.status(404).send({message:"solde et credit insefisent"})
         }}
 
      }else{
@@ -57,7 +84,11 @@ const postreservationhotel=async(req,res)=>
         res.status(404).send({message:"hotel not found"})
      }
 }
-
+const getallreservationhotelbyuser=async(req,res)=>{
+   let id=req.params.id
+   const reservation=await reservation_hotel.findAll({where:{userId:id}})
+   res.status(200).send(reservation)
+}
 const updatereservationhotel=async(req,res)=>{
     let id=req.params.id
     let body=req.body
@@ -152,6 +183,7 @@ module.exports={
     getallreserhotelt,
     postreservationhotel,
     deletereservationhotel,
-    updatereservationhotel
+    updatereservationhotel,
+    getallreservationhotelbyuser
 
  }

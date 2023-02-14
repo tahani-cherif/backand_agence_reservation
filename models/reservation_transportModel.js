@@ -67,6 +67,12 @@ module.exports=(Sequelize,DataTypes)=>{
             }
           }
          },
+         nom_agence:{
+          type:DataTypes.STRING,
+         },
+         reference:{
+          type:DataTypes.STRING,
+         },
         date_debut:{
             type:DataTypes.DATE,
             allowNull:false,

@@ -16,6 +16,20 @@ const postclient=async(req,res)=>
     res.status(200).send(client)
 }
 
+const updateclient=async(req,res)=>
+{   id=req.params.id
+    const body=req.body
+    const client=await Client.findOne({where:{id:id}})
+    if(client)
+    {
+    await Client.update(body,{where:{id:id}}).catch(err=>res.status(404).send(err))
+    const client=await Client.findOne({where:{id:id}})
+    res.status(200).send(client)}
+    else{
+        res.status(404).send({message:"client not found"})
+    }
+}
+
 // return client by id
 const getclient=async(req,res)=>
 {
@@ -61,5 +75,6 @@ module.exports={
     getclient,
     deletclient,
     countClient,
-    getclientbymail
+    getclientbymail,
+    updateclient
 }

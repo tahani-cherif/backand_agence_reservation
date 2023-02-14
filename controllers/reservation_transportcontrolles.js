@@ -37,7 +37,20 @@ const reservation_tarnsportpost=async(req,res)=>
            user.solde=Number(user.solde)-Number(body.monatnt_total)
            body.credit=0
            let id
-            let reservation=await Reservation_tarnsport.create(body).then(async(secc)=>{
+           const datatransport={
+            nb_place:body.nb_place,
+            type:body.type,
+            monatnt_total:body.monatnt_total,
+            date_debut:body.date_debut,
+            date_fin:body.date_fin,
+            id_transport:body.id_transport,
+            userId:body.userId,
+            solde:body.solde,
+            credit:body.credit,
+            nom_agence:user.nom_agence,
+            reference:data.reference
+        }
+            let reservation=await Reservation_tarnsport.create(datatransport).then(async(secc)=>{
                   id=secc.dataValues.id
                  await User.update(user,{where:{id:body.userId}})}).catch((err)=>res.status(404).send(err))  // creation une reservation bus
             res.status(200).send({id:id,message:"reservation cree"}) }
@@ -54,7 +67,20 @@ const reservation_tarnsportpost=async(req,res)=>
             body.type==="bus"? await Bus.update(data,{where:{id:body.id_transport}})
             :await Avion.update(data,{where:{id:body.id_transport}})   
             let id
-            let reservation=await Reservation_tarnsport.create(body).then(async(secc)=> {
+            const datatransport={
+                nb_place:body.nb_place,
+                type:body.type,
+                monatnt_total:body.monatnt_total,
+                date_debut:body.date_debut,
+                date_fin:body.date_fin,
+                id_transport:body.id_transport,
+                userId:body.userId,
+                solde:body.solde,
+                credit:body.credit,
+                nom_agence:user.nom_agence,
+                reference:data.reference
+            }
+            let reservation=await Reservation_tarnsport.create(datatransport).then(async(secc)=> {
                 id=secc.dataValues.id
                 await User.update(user,{where:{id:body.userId}})}).catch((err)=>res.status(404).send(err)) // creation une reservation bus
                 res.status(200).send({id:id,message:"reservation cree"})

@@ -70,7 +70,10 @@ module.exports=(Sequelize,DataTypes)=>{
             msg: "Must be an float number of pennies"
           }
         }
-       }
+       },
+       tokens:{
+        type:DataTypes.STRING,
+       },   
        
        
     })

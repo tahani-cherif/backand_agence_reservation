@@ -33,6 +33,12 @@ module.exports=(Sequelize,DataTypes)=>{
          credit:{
           type:DataTypes.FLOAT,
          },
+         nom_agence:{
+          type:DataTypes.STRING,
+         },
+         nom_hotel:{
+          type:DataTypes.STRING,
+         },
         date_debut:{
             type:DataTypes.DATE,
             allowNull:false,

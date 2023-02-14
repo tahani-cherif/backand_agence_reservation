@@ -46,6 +46,7 @@ DB.reservation_client_transport=require('./reservation_client_transport')(db, Da
 DB.reservation_client_event=require('./reservation_client_event')(db, DataTypes)
 DB.reservation_client_hotel=require('./reservation_client_HOTEL')(db, DataTypes)
 DB.reservation_client_programme=require('./reservation_client_programme')(db, DataTypes)
+DB.admin=require('./adminModel')(db, DataTypes)
 
 //relation entre les tableau
 

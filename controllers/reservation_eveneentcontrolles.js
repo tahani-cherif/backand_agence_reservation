@@ -30,7 +30,19 @@ const reservation_evenementpost=async(req,res)=>
             user.solde=Number(user.solde)-Number(body.monatnt_total)
             body.credit=0
             let id
-            let reservation=await reservation_evenement.create(body).then(async(secc)=>{
+            const dataevent={
+                nb_place:body.nb_place,
+                monatnt_total:body.monatnt_total,
+                date_debut:body.date_debut,
+                date_fin:body.date_fin,
+                evenementId:body.evenementId,
+                userId:body.userId,
+                nom_evenement:data.nom_evenement,
+                nom_agence:user.nom_agence,
+                solde:body.solde,
+                credit:body.credit
+            }
+            let reservation=await reservation_evenement.create(dataevent).then(async(secc)=>{
                 id=secc.dataValues.id
                 await User.update(user,{where:{id:body.userId}})} ).catch((err)=>res.status(404).send(err))  // creation une reservation evenement
             res.status(200).send({id:id,message:"solde et credit insefisent"})}
@@ -45,7 +57,19 @@ const reservation_evenementpost=async(req,res)=>
                 data.nb_place_reserver=Number(data.nb_place_reserver)+Number(body.nb_place)
                 await Evenement.update(data,{where:{id:body.evenementId}}).catch((err)=>res.status(404).send(err))
                 let id
-                let reservation=await reservation_evenement.create(body).then(async(secc)=>{
+                const dataevent={
+                    nb_place:body.nb_place,
+                    monatnt_total:body.monatnt_total,
+                    date_debut:body.date_debut,
+                    date_fin:body.date_fin,
+                    evenementId:body.evenementId,
+                    userId:body.userId,
+                    nom_evenement:data.nom_evenement,
+                    nom_agence:user.nom_agence,
+                    solde:body.solde,
+                    credit:body.credit
+                }
+                let reservation=await reservation_evenement.create(dataevent).then(async(secc)=>{
                     id=secc.dataValues.id
                     await User.update(user,{where:{id:body.userId}})} ).catch((err)=>res.status(404).send(err))  // creation une reservation evenement
                res.status(200).send({id:id,message:"solde et credit insefisent"})
@@ -79,7 +103,7 @@ const getreservationevenementbyid=async(req,res)=>{
 
 const getallreservationevenementbyuser=async(req,res)=>{
     let id=req.params.id
-    const reservation=await reservation_evenement.findAll({where:{evenementUserId:id}})
+    const reservation=await reservation_evenement.findAll({where:{userId:id}})
     res.status(200).send(reservation)
 }
 
