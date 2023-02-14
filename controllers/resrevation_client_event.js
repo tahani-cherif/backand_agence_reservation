@@ -47,7 +47,7 @@ const countclient=async(req,res)=>{
    }
 }
 
-
+const countreservation_client_event=async()=> await reservation_client_event.count();
 
 
 module.exports={
@@ -55,6 +55,7 @@ module.exports={
     postRCE,
     getRCE,
     deleteRCE,
-    countclient
+    countclient,
+    countreservation_client_event
  
  }

@@ -59,7 +59,7 @@ const deleteprogramme=async(req,res)=>{
 }
 
 
-
+const countProgramme=async()=> await Programme.count();
 
 module.exports={
     getallprogramme,
@@ -67,5 +67,5 @@ module.exports={
     getprogramme,
     updateprogramme,
     deleteprogramme,
- 
+    countProgramme
  }

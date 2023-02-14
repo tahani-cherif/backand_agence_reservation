@@ -1,7 +1,7 @@
 var bcrypt = require('bcryptjs');
 
 const db = require('../models')
-var {sign} = require('jsonwebtoken');
+
 const User = db.user
 
 
@@ -53,7 +53,7 @@ const updateAgence=async(req,res)=>{
         const agences=await User.findOne({where:{id:id}})
         res.status(200).send(agences)
     }else{
-        res.status(404).send({message:"Agence not found"})
+        res.status(404).send("Agence not found")
     }
      
 }
@@ -66,24 +66,18 @@ const loginAgence = async (req, res) => {
     if (agence) {
         const restPass = bcrypt.compareSync(body.password, agence.password)
         if (restPass) {
-            var token = sign({ userId: body.id, userEmail: body.e_mail, userPassword: body.password, }, "b511c37237d9ce535dd3336c2df808c9a78==")
-            agence.update({tokens:token})
             res.status(200).send(agence)  
         } else {
-           res.status(400).send({message:"password not found"})        
+           res.status(400).send("password not found")        
         }
 
 
     } else {
-        res.status(400).send({message:"e-mail not found"})
+        res.status(400).send("e-mail not found")
         
     }
 
 }
-const checkAuth =async (req,res) => {
-    res.status(200).send("vous avez ete authentifier ")
-}
-
 
 // delete bus par id
 
@@ -100,12 +94,14 @@ const deleteuser=async(req,res)=>{
 
 }
 
+const countUser=async()=> await User.count();
+
 module.exports={
     getAllAgence,
     postAgence,
     updateAgence,
     getuser,
     loginAgence,
-    deleteuser,
-    checkAuth
+    countUser,
+    deleteuser
 }

@@ -112,6 +112,7 @@ const deleteevenements=async(req,res)=>{
 
 }
 
+const countEvenement = async () => await Evenement.count();
 
 module.exports={
     getallevenement,
@@ -120,5 +121,6 @@ module.exports={
     updateevenement,
     deleteevenement,
     deleteevenements,
+    countEvenement,
     updateevenementsnbplacereserver
  }

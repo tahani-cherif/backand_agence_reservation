@@ -75,6 +75,7 @@ const deleteavion=async(req,res)=>{
     }
 
 }
+const countAvion=async()=> await Avion.count();
 
 
 
@@ -85,6 +86,7 @@ module.exports={
     getavion,
     updateavion,
     deleteavion,
-    updateavionnbplacereserver
+    updateavionnbplacereserver,
+    countAvion,
  
  }

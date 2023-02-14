@@ -1,7 +1,6 @@
 const db=require('../models')
 const reservation_client_transport=db.reservation_client_transport
 const reservation_transport=db.reservation_tarnsport
-const dbclient=db.client
 
 //return tous les bus ajouter a partire admin
 const getallRCT=async(req,res)=>
@@ -49,21 +48,7 @@ const countclient=async(req,res)=>{
    }
 }
 
-const getclientbyreservation=async(req,res)=>{
-    let id=req.params.id
-    const reservation=await reservation_client_transport.findAll({where:{reservationTarnsportId:id}}).catch(err=> res.satuts(404).send(err))
-    let client=[]
-    reservation.map(async(item)=>{
-        x=await dbclient.findOne({where:{id:item.clientId}})
-        client.push(x)
-    })
-
-    setTimeout(() => {
-        res.status(200).send(client)
-      }, 1000)
-     
-
-}
+const countreservation_client_transport=async()=> await reservation_client_transport.count();
 
 
 
@@ -72,7 +57,7 @@ module.exports={
     postRCT,
     getRCT,
     deleteRCT,
-    countclient,
-    getclientbyreservation
+    countreservation_client_transport,
+    countclient
  
  }

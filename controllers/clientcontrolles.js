@@ -67,11 +67,14 @@ const deletclient=async(req,res)=>{
     }
 
 }
+
+const countClient=async()=> await Client.count();
 module.exports={
     getallclient,
     postclient,
     getclient,
     deletclient,
+    countClient,
     getclientbymail,
     updateclient
 }

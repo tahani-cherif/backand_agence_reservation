@@ -19,6 +19,7 @@ const upload=multer({
 )
 
 router.get('/getallevenement',evenementcontroller.getallevenement)
+router.get('/countEvenement',evenementcontroller.countEvenement)
 router.get('/getoneevenement/:id',evenementcontroller.getevenement)
 router.post('/addevenement',upload.single('image_evenement'),evenementcontroller.postevenement)
 router.put('/updateevenement/:id',evenementcontroller.updateevenement)
