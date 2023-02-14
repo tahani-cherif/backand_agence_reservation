@@ -35,6 +35,7 @@ const routerreservationRCT=require('./routes/RCTroute')
 const routerreservationRCE=require('./routes/RCEroute')
 const routerreservationRCH=require('./routes/RCHROUTE')
 const routeremail=require('./routes/emailrout')
+const routeradmin=require('./routes/adminroute')
 
 app.use('/api/hotel', routerhotel)
 app.use('/api/bus', routerbus)
@@ -52,6 +53,7 @@ app.use('/api/RCT', routerreservationRCT)
 app.use('/api/RCE', routerreservationRCE)
 app.use('/api/RCH', routerreservationRCH)
 app.use('/api/mail', routeremail)
+app.use('/api/admin', routeradmin)
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //static Images Folder
