@@ -1,7 +1,7 @@
 var bcrypt = require('bcryptjs');
 
 const db = require('../models')
-
+var {sign} = require('jsonwebtoken');
 const User = db.user
 
 
@@ -66,13 +66,13 @@ const loginAgence = async (req, res) => {
     if (agence) {
         const restPass = bcrypt.compareSync(body.password, agence.password)
         if (restPass) {
+            var token = sign({ userId: body.id, userEmail: body.e_mail, userPassword: body.password, }, "b511c37237d9ce535dd3336c2df808c9a78==")
+            agence.update({tokens:token})
             res.status(200).send(agence)  
         } else {
            res.status(400).send("password not found")        
-        }
 
-
-    } else {
+    }} else {
         res.status(400).send("e-mail not found")
         
     }

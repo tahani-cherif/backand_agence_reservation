@@ -70,8 +70,10 @@
             "required": true,
             "schema": {
               "type": "object",
-              "items": {
-                "id": "number"
+              "properties": {
+                "id": {
+                  "type": "number"
+                }
               }
           }}
         ],
