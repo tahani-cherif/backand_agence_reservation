@@ -40,7 +40,9 @@ const postreservationhotel=async(req,res)=>
                nom_agence:user.nom_agence,
                nom_hotel:data.nom_hotel,
                credit:body.credit,
-               solde:body.solde
+               solde:body.solde,
+               data_debut:body.date_debut,
+               data_fin:body.date_fin
             }
             let reservation=await reservation_hotel.create(datahotel).then(async(secc)=>{
                 id=secc.dataValues.id
@@ -68,7 +70,9 @@ const postreservationhotel=async(req,res)=>
                   nom_agence:user.nom_agence,
                   nom_hotel:data.nom_hotel,
                   credit:body.credit,
-                  solde:body.solde
+                  solde:body.solde,
+                  data_debut:body.date_debut,
+                  data_fin:body.date_fin
                }
                 await reservation_hotel.create(datahotel).then(async(secc)=>{
                     id=secc.dataValues.id
