@@ -1,6 +1,7 @@
 const db=require('../models')
 const reservation_client_hotel=db.reservation_client_hotel
 const reservation_hotel=db.reservation_hotel
+const dbclient=db.client
 
 //return tous les bus ajouter a partire admin
 const getallRCH=async(req,res)=>
@@ -49,6 +50,20 @@ const countclient=async(req,res)=>{
    }
 }
 
+const getclientbyreservation=async(req,res)=>{
+    let id=req.params.id
+    const reservation=await reservation_client_hotel.findAll({where:{reservationHotelId:id}}).catch(err=> res.satuts(404).send(err))
+    let client=[]
+    reservation.map(async(item)=>{
+        x=await dbclient.findOne({where:{id:item.clientId}})
+        client.push(x)
+    })
+
+    setTimeout(() => {
+        res.status(200).send(client)
+      }, 1000)
+
+}
 const countreservation_client_hotel=async()=> await reservation_client_hotel.count();
 module.exports={
     getallRCH,
@@ -56,6 +71,7 @@ module.exports={
     getRCH,
     deleteRCH,
     countreservation_client_hotel,
-    countclient
+    countclient,
+    getclientbyreservation
  
  }

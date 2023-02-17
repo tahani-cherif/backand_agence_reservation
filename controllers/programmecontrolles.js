@@ -54,7 +54,9 @@ const postprogramme=async(req,res)=>
         nom_hotel:nom_hotel,
         nom_evenement:nom_evenement,
         matricule:matricule,
-        reference_avion:reference_avion
+        reference_avion:reference_avion,
+        point_depart:body.point_depart,
+        point_arrive:body.point_arrive
     }
     let programme=await Programme.create(data).catch(err=>res.status(404).send(err));
     res.status(200).send(programme)

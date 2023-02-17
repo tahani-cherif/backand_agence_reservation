@@ -43,7 +43,12 @@ module.exports=(Sequelize,DataTypes)=>{
            },
       image_programme:{
             type:DataTypes.JSON
-          }
+          },
+          point_depart:{
+            type:DataTypes.STRING,},
+        point_arrive:{
+          type:DataTypes.STRING,
+      },
     });
     return programme
 }

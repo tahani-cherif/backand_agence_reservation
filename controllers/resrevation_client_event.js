@@ -1,6 +1,7 @@
 const db=require('../models')
 const reservation_client_event=db.reservation_client_event
 const reservation_evenement=db.reservation_evenement
+const dbclient=db.client
 //return tous les bus ajouter a partire admin
 const getallRCE=async(req,res)=>
 {   
@@ -47,15 +48,30 @@ const countclient=async(req,res)=>{
    }
 }
 
-const countreservation_client_event=async()=> await reservation_client_event.count();
 
 
+const getclientbyreservation=async(req,res)=>{
+    let id=req.params.id
+    const reservation=await reservation_client_event.findAll({where:{reservationEvenementId:id}}).catch(err=> res.satuts(404).send(err))
+    let client=[]
+    reservation.map(async(item)=>{
+        x=await dbclient.findOne({where:{id:item.clientId}})
+        client.push(x)
+    })
+
+    setTimeout(() => {
+        res.status(200).send(client)
+      }, 1000)
+
+}
+const countreservation_client_event=async(req,res)=> await reservation_client_event.count();
 module.exports={
     getallRCE,
     postRCE,
     getRCE,
     deleteRCE,
     countclient,
-    countreservation_client_event
+    countreservation_client_event,
+    getclientbyreservation
  
  }
