@@ -112,7 +112,9 @@ const deleteevenements=async(req,res)=>{
 
 }
 
-const countEvenement = async () => await Evenement.count();
+const countEvenement = async (req,res) => {
+    const nb=await Evenement.count();
+    res.status(200).send({nb:nb})}
 
 module.exports={
     getallevenement,

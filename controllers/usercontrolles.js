@@ -94,7 +94,9 @@ const deleteuser=async(req,res)=>{
 
 }
 
-const countUser=async()=> await User.count();
+const countUser=async(req,res)=> {
+    const nb=await User.count();
+    res.status(200).send({nb:nb})}
 
 module.exports={
     getAllAgence,

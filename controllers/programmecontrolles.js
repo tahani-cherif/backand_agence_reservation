@@ -17,10 +17,10 @@ const postprogramme=async(req,res)=>
         nom_programme:body.nom_programme,
         date_debut:body.date_debut,
         date_fin:body.date_fin,
-        hotelId:body.hotelId,
-        busId:body.busId,
-        avionId:body.avionId,
-        evenementId:body.evenementId,
+        hotelId:body.hotelId || null,
+        busId:body.busId || null,
+        avionId:body.avionId || null,
+        evenementId:body.evenementId || null,
         image_programme:req.file.path
     }
     let programme=await Programme.create(data).catch(err=>res.status(404).send(err));
@@ -69,7 +69,9 @@ const deleteprogramme=async(req,res)=>{
 }
 
 
-const countProgramme=async()=> await Programme.count();
+const countProgramme=async(req,res)=>{ 
+    const nb=await Programme.count();
+    res.status(200).send({nb:nb})}
 
 module.exports={
     getallprogramme,

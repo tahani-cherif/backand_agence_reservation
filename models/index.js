@@ -67,16 +67,16 @@ DB.admin=require('./adminModel')(db, DataTypes)
 //  DB.reservation_evenement.hasMany(DB.client,{foreignkey:'id_evenements'})//relation entre table reservation evenement et client 
 
  //relation table programme
- DB.programme.belongsTo(DB.hotel,{foreignkey:'id_hotel'})
- DB.hotel.hasMany(DB.programme,{foreignkey:'id_hotel'})
- DB.programme.belongsTo(DB.bus,{foreignkey:'id_bus'})
- DB.bus.hasMany(DB.programme,{foreignkey:'id_bus'})
- DB.programme.belongsTo(DB.avion,{foreignkey:'id_avion'})
- DB.avion.hasMany(DB.programme,{foreignkey:'id_avion'})
- DB.programme.belongsTo(DB.evenement,{foreignkey:'id_event'})
- DB.evenement.hasMany(DB.programme,{foreignkey:'id_event'})
- DB.programme.belongsTo(DB.hotel,{foreignkey:'id_hotel'})
- DB.hotel.hasMany(DB.programme,{foreignkey:'id_hotel'})
+ DB.programme.belongsTo(DB.hotel,{foreignkey: {allowNull: true}})
+ DB.hotel.hasMany(DB.programme,{foreignkey: {allowNull: true}})
+ DB.programme.belongsTo(DB.bus,{foreignkey: {allowNull: true}})
+ DB.bus.hasMany(DB.programme,{foreignkey: {allowNull: true}})
+ DB.programme.belongsTo(DB.avion,{foreignkey: {allowNull: true}})
+ DB.avion.hasMany(DB.programme,{foreignkey: {allowNull: true}})
+ DB.programme.belongsTo(DB.evenement,{foreignkey: {allowNull: true}})
+ DB.evenement.hasMany(DB.programme,{foreignkey: {allowNull: true}})
+ DB.programme.belongsTo(DB.hotel,{foreignkey: {allowNull: true}})
+ DB.hotel.hasMany(DB.programme,{foreignkey: {allowNull: true}})
 
  // relation de la table reservation  programme
  DB.reservation_tarnsport.hasMany(DB.reservation_client_programme,{foreignkey:'transport'})

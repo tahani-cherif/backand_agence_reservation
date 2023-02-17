@@ -166,7 +166,10 @@ const deletehotels=async(req,res)=>{
       }, "1000")
 
 }
-const countHotel=async()=> await Hotel.count();
+const countHotel=async(req,res)=>{ 
+    const nb=await Hotel.count();
+    res.status(200).send({nb:nb})
+  }
 module.exports={
     getallhotel,
     posthotels,

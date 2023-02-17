@@ -4,6 +4,7 @@ const router=require("express").Router()
 const agenceAuth = require('../middleware/authantification')
 
 router.get('/getAllAgence',agenceController.getAllAgence)
+router.get('/countagence',agenceController.countUser)
 router.post('/postAgence',agenceController.postAgence)
 router.get('/getagence/:id',agenceController.getuser)
 router.put('/updateAgence/:id',agenceController.updateAgence)

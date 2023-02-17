@@ -102,7 +102,9 @@ const deletebuss=async(req,res)=>{
 
 }
 
-const countBus=async()=> await Bus.count();
+const countBus=async(req,res)=>{ 
+    const nb=await Bus.count();
+    res.status(200).send({nb:nb})}
 
 
 module.exports={

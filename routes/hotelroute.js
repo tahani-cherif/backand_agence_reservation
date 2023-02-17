@@ -19,6 +19,7 @@ const upload=multer({
 )
 router.get('/getallhotel',hotelcontroller.getallhotel)
 router.get('/getonehotel/:id',hotelcontroller.gethotel)
+router.get('/getcounthotel',hotelcontroller.countHotel)
 // router.get('/getonehotel/:id',auth,hotelcontroller.gethotel)
 router.post('/addhotel',upload.array('image_hotel',10),hotelcontroller.posthotels)
 router.put('/updatehotel/:id',hotelcontroller.updatehotel)

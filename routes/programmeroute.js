@@ -20,6 +20,8 @@ const upload=multer({
 
 
 router.get('/getallprogramme',programmecontroller.getallprogramme)
+router.get('/countprogramme',programmecontroller.countProgramme)
+router.get('/getoneprogramme/:id',programmecontroller.getprogramme)
 router.get('/getoneprogramme/:id',programmecontroller.getprogramme)
 router.post('/addprogramme',upload.single('image_programme'),programmecontroller.postprogramme)
 router.put('/updateprogramme/:id',programmecontroller.updateprogramme)

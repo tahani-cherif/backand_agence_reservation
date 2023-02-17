@@ -75,9 +75,10 @@ const deleteavion=async(req,res)=>{
     }
 
 }
-const countAvion=async()=> await Avion.count();
-
-
+const countAvion=async(req,res)=> {
+     const nb=await Avion.count();
+    res.status(200).send({nb:nb})
+}
 
 
 module.exports={
