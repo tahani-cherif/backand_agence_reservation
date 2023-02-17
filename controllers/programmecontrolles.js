@@ -13,7 +13,17 @@ const getallprogramme=async(req,res)=>
 const postprogramme=async(req,res)=>
 {
     const body=req.body
-    let programme=await Programme.create(body).catch(err=>res.status(404).send(err));
+    const data={
+        nom_programme:body.nom_programme,
+        date_debut:body.date_debut,
+        date_fin:body.date_fin,
+        hotelId:body.hotelId,
+        busId:body.busId,
+        avionId:body.avionId,
+        evenementId:body.evenementId,
+        image_programme:req.file.path
+    }
+    let programme=await Programme.create(data).catch(err=>res.status(404).send(err));
     res.status(200).send(programme)
 }
 // return programme by id

@@ -29,6 +29,9 @@ module.exports=(Sequelize,DataTypes)=>{
               }
             }
            },
+      image_programme:{
+            type:DataTypes.JSON
+          }
     });
     return programme
 }
