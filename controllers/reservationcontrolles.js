@@ -15,6 +15,10 @@ const postresvprogramme=async(req,res)=>
      let avion= await reservation.create(req.body).catch(err=>res.status(404).send(err))
      res.status(200).send(avion)
 }
+const countresevationprogramme=async(req,res)=>{
+  const nb=await reservation.count();
+  res.status(200).send({nb:nb});
+}
 const resrvation_tab=async(req,res)=>
  {
       const body=req.body
@@ -99,5 +103,6 @@ const countreservation=async()=> await reservation.count();
 
 
 module.exports={
-  postresvprogramme
+  postresvprogramme,
+  countresevationprogramme
  }
