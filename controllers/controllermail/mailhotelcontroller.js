@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 
     let desc=`<div>
     <h3>Reservation de agence ${body.nom_agence}</h3>
-    <p>agance ${body.nom_agence} reserver ${body.nb_chambre} chambre ${body.type} a ${body.nb_client} clients </p>
+    <p>agance ${body.nom_agence} reserver ${body.nb_chambre} pendant ${body.nb_nuit} jour  chambre ${body.type} a ${body.nb_client} clients </p>
     `
     if(parseInt(body.enfant_gratuit)===1)
     {

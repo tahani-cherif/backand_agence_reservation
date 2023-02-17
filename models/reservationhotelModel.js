@@ -57,6 +57,9 @@ module.exports=(Sequelize,DataTypes)=>{
               }
             }
            },
+        nb_nuit:{
+          type:DataTypes.INTEGER
+        }
     });
     return reservation_hotel
 }
