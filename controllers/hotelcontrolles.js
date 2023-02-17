@@ -126,7 +126,7 @@ const updatehotel=async(req,res)=>{
 const deletehotel=async(req,res)=>{
     let id=req.params.id
     const hotel=await Hotel.findOne({where:{id:id}})
-    const img=JSON.parse(hotel.image_hotel)
+    const img=hotel.image_hotel
     img.map((e)=>{
     fs.unlinkSync(e)
     })

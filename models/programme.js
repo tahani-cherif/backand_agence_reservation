@@ -11,6 +11,18 @@ module.exports=(Sequelize,DataTypes)=>{
                 msg: 'Please enter your non programme'
               }}
         },
+        nom_hotel:{
+          type:DataTypes.STRING,
+      },
+      nom_evenement:{
+        type:DataTypes.STRING,
+    },
+    matricule:{
+      type:DataTypes.STRING,
+  },
+  reference_avion:{
+    type:DataTypes.STRING,
+},
         date_debut:{
             type:DataTypes.DATE,
             allowNull:false,

@@ -45,9 +45,9 @@ const updateAgence=async(req,res)=>{
     let id=req.params.id
     const agences=await User.findOne({where:{id:id}})
     if(agences){
-        const salt = bcrypt.genSaltSync(10)
-        const mdpCrypt = bcrypt.hashSync(req.body.password, salt)
-        req.body.password =mdpCrypt
+        // const salt = bcrypt.genSaltSync(10)
+        // const mdpCrypt = bcrypt.hashSync(req.body.password, salt)
+        // req.body.password =mdpCrypt
 
         await User.update(req.body,{where:{id:id}})
         const agences=await User.findOne({where:{id:id}})

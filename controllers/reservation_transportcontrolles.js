@@ -218,6 +218,12 @@ const deletereservationtarnsport=async(req,res) => {
 const countReservation_tarnsport=async(req,res)=>{ 
     const nb=await Reservation_tarnsport.count();
     res.status(200).send({nb:nb})}
+    const countReservation_tarnsportavion=async(req,res)=>{ 
+        const nb=await Reservation_tarnsport.count({where:{type:'avion'}});
+        res.status(200).send({nb:nb})}
+        const countReservation_tarnsportbus=async(req,res)=>{ 
+            const nb=await Reservation_tarnsport.count({where:{type:'bus'}});
+            res.status(200).send({nb:nb})}
 
 module.exports={
     getallreservationtarnsport,
@@ -227,5 +233,7 @@ module.exports={
     updatereservationtarnsport,
     deletereservationtarnsport,
     countReservation_tarnsport,
-    getallreservationtarnsportbyid
+    getallreservationtarnsportbyid,
+    countReservation_tarnsportavion,
+    countReservation_tarnsportbus
  }
