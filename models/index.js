@@ -47,6 +47,7 @@ DB.reservation_client_event=require('./reservation_client_event')(db, DataTypes)
 DB.reservation_client_hotel=require('./reservation_client_HOTEL')(db, DataTypes)
 DB.reservation_client_programme=require('./reservation_client_programme')(db, DataTypes)
 DB.admin=require('./adminModel')(db, DataTypes)
+DB.reservation_client_programme=require('./reservation_client_programme')(db, DataTypes)
 
 //relation entre les tableau
 
@@ -128,6 +129,11 @@ DB.reservation_evenement.hasMany(DB.reservation,{foreignkey: {allowNull: true}})
 DB.reservation_tarnsport.hasMany(DB.reservation,{foreignkey: {allowNull: true}})
 DB.reservation_hotel.hasMany(DB.reservation,{foreignkey: {allowNull: true}})
 
+
+DB.reservation_client_programme.belongsTo(DB.client,{foreignkey:'client'})
+DB.client.hasMany(DB.reservation_client_programme,{foreignkey:'client'})
+DB.reservation.hasMany(DB.reservation_client_programme,{foreignkey:'hotel'})
+DB.reservation_client_programme.belongsTo(DB.reservation,{foreignkey:'hotel'})
 
 
 DB.sequelize.sync({ force: false })
