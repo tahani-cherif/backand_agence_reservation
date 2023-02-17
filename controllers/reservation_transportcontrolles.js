@@ -215,7 +215,9 @@ const deletereservationtarnsport=async(req,res) => {
         res.status(404).send({message:"reservation not found"})
      }
 }
-const countReservation_tarnsport=async(req,res)=>{ await Reservation_tarnsport.count();}
+const countReservation_tarnsport=async(req,res)=>{ 
+    const nb=await Reservation_tarnsport.count();
+    res.status(200).send({nb:nb})}
 
 module.exports={
     getallreservationtarnsport,

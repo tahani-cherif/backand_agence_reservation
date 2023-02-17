@@ -184,12 +184,14 @@ const deletereservationhotel=async(req,res) => {
     }
 }
 
-const countHotel=async()=> await Hotel.count();
+const countHotel=async(req,res)=>{ 
+   const nb=await Hotel.count();
+   res.status(200).send({nb:nb})}
 module.exports={
     getallreserhotelt,
     postreservationhotel,
     deletereservationhotel,
     updatereservationhotel,
-    getallreservationhotelbyuser
-
+    getallreservationhotelbyuser,
+    countHotel
  }

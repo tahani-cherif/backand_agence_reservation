@@ -197,7 +197,9 @@ const deletereservationevenement=async(req,res) => {
        res.status(404).send({message:"reservation not found"})
     }
 }
-const countReservation_evenement=async()=> await reservation_evenement.count();
+const countReservation_evenement=async(req,res)=>{
+    const nb= await reservation_evenement.count();
+    res.status(200).send({nb:nb})}
 
 module.exports={
     getallreservationevenement,

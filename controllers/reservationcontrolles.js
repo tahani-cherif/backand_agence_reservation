@@ -10,7 +10,11 @@ const getallresv=async(req,res)=>
      let avion= await reservation.findAll().catch(err=>res.status(404).send(err))
      res.status(200).send(avion)
 }
-
+const postresvprogramme=async(req,res)=>
+{   
+     let avion= await reservation.create(req.body).catch(err=>res.status(404).send(err))
+     res.status(200).send(avion)
+}
 const resrvation_tab=async(req,res)=>
  {
       const body=req.body
@@ -95,7 +99,5 @@ const countreservation=async()=> await reservation.count();
 
 
 module.exports={
-    getallresv,
-  resrvation_tab,
-    countreservation
+  postresvprogramme
  }

@@ -1,7 +1,7 @@
 const reservationcontroller=require("../controllers/reservationcontrolles")
 const router=require("express").Router()
 
-router.post('/postreservation',reservationcontroller.resrvation_tab)
+router.post('/postreservationprogramme',reservationcontroller.postresvprogramme)
 // router.get('/getoneavion/:id',avioncontroller.getavion)
 // router.post('/addavion',avioncontroller.postavion)
 // router.put('/updateavion/:id',avioncontroller.updateavion)

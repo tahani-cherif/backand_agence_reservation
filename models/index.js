@@ -119,6 +119,16 @@ DB.reservation_tarnsport.belongsTo(DB.reservation_client_transport,{foreignkey:'
  DB.reservation_hotel.hasMany(DB.reservation_client_hotel,{foreignkey:'hotel'})
  DB.reservation_client_hotel.belongsTo(DB.reservation_hotel,{foreignkey:'hotel'})
 
+// relation table reservation
+
+DB.reservation.belongsTo(DB.reservation_evenement,{foreignkey: {allowNull: true}})
+DB.reservation.belongsTo(DB.reservation_tarnsport,{foreignkey: {allowNull: true}})
+DB.reservation.belongsTo(DB.reservation_hotel,{foreignkey: {allowNull: true}})
+DB.reservation_evenement.hasMany(DB.reservation,{foreignkey: {allowNull: true}})
+DB.reservation_tarnsport.hasMany(DB.reservation,{foreignkey: {allowNull: true}})
+DB.reservation_hotel.hasMany(DB.reservation,{foreignkey: {allowNull: true}})
+
+
 
 DB.sequelize.sync({ force: false })
 .then(() => {
