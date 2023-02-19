@@ -54,7 +54,7 @@ const postreservationhotel=async(req,res)=>
             const reste=Number(body.monatnt_total)-Number(user.solde)
             body.solde=Number(user.solde)
             if(Number(user.credit)-reste>=0)
-            { user.solde=0
+            {   user.solde=0
                 user.credit=Number(user.credit)-reste
                 body.credit=reste
                 data.nb_place_reserver=Number(data.nb_place_reserver)+Number(body.nb_place)
@@ -184,6 +184,84 @@ const deletereservationhotel=async(req,res) => {
     }
 }
 
+const reservation_hotel_post=async(req,res)=>{
+
+   let body=req.body
+   let data=await Hotel.findOne({where:{id:body.hotelId}}).then(det=>det.dataValues).catch(err=> res.status(404).send(err))
+   if(data)
+   {  
+      if((Number(data.nb_place_reserver)+Number(body.nb_place))<=Number(data.capacite))
+      {
+         let user=await User.findOne({where:{id:body.userId}}).then((res)=>res.dataValues).catch(err=> res.status(404).send(err))
+         if(Number(user.solde)-Number(body.monatnt_total)>=0)
+         {
+            body.solde=Number(body.monatnt_total)
+            user.solde=Number(user.solde)-Number(body.monatnt_total)
+            body.credit=0
+            const datahotel ={
+               nb_place:body.nb_place,
+               monatnt_total:body.monatnt_total,
+               date_debut:body.date_debut,
+               date_fin:body.date_fin,
+               hotelId:body.hotelId,
+               userId:body.userId,
+               nom_agence:user.nom_agence,
+               nom_hotel:data.nom_hotel,
+               credit:body.credit,
+               solde:body.solde,
+               data_debut:body.date_debut,
+               data_fin:body.date_fin,
+               nb_nuit:body.nb_nuit,
+               reservationId:body.reservationId || null,
+               chambre_id:body.chambre_id
+            }
+            let datareservation
+            let reservation=await reservation_hotel.create(datahotel).then(async(secc)=>{
+               datareservation=secc.dataValues
+               await User.update(user,{where:{id:body.userId}})} ).catch((err)=>res.status(404).send(err))
+           res.status(200).send({datareservation:datareservation,message:"reservation cree"})
+         }else{
+            const reste=Number(body.monatnt_total)-Number(user.solde)
+            body.solde=Number(user.solde)
+            if(Number(user.credit)-reste>=0){
+               user.solde=0
+               user.credit=Number(user.credit)-reste
+               body.credit=reste
+               const datahotel ={
+                  nb_place:body.nb_place,
+                  monatnt_total:body.monatnt_total,
+                  date_debut:body.date_debut,
+                  date_fin:body.date_fin,
+                  hotelId:body.hotelId,
+                  userId:body.userId,
+                  nom_agence:user.nom_agence,
+                  nom_hotel:data.nom_hotel,
+                  credit:body.credit,
+                  solde:body.solde,
+                  data_debut:body.date_debut,
+                  data_fin:body.date_fin,
+                  nb_nuit:body.nb_nuit,
+                  reservationId:body.reservationId || null,
+                  chambre_id:body.chambre_id
+               }
+               let datareservation
+               let reservation=await reservation_hotel.create(datahotel).then(async(secc)=>{
+                  datareservation=secc.dataValues
+                  await User.update(user,{where:{id:body.userId}})} ).catch((err)=>res.status(404).send(err))
+              res.status(200).send({datareservation:datareservation,message:"reservation cree"})
+            }else{
+               res.status(404).send({message:"solde et credit insefisent"})
+            }
+         }
+
+      }else{
+         res.status(200).send({message:"aucune chambre desponible"})
+      }
+ 
+   }else{
+      res.status(404).send({message:"hotel not found"})
+   }
+}
 const countHotel=async(req,res)=>{ 
    const nb=await reservation_hotel.count();
    res.status(200).send({nb:nb})}
@@ -193,5 +271,6 @@ module.exports={
     deletereservationhotel,
     updatereservationhotel,
     getallreservationhotelbyuser,
-    countHotel
+    countHotel,
+    reservation_hotel_post
  }

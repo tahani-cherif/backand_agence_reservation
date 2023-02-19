@@ -101,6 +101,8 @@ DB.hotel.hasMany(DB.reservation_hotel,{foreignkey:'hotel'})
 DB.reservation_hotel.belongsTo(DB.hotel,{foreignkey:'hotel'})
 DB.user.hasMany(DB.reservation_hotel,{foreignkey:'hotel'})
 DB.reservation_hotel.belongsTo(DB.user,{foreignkey:'hotel'})
+DB.reservation.hasMany(DB.reservation_hotel,{foreignkey: {allowNull: true}})
+DB.reservation_hotel.belongsTo(DB.reservation,{foreignkey: {allowNull: true}})
 
 // relation reservation client transport
 

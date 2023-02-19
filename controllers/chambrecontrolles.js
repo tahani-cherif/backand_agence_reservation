@@ -15,13 +15,12 @@ const postchambre=async(req,res)=>
 {
     const body=req.body
     const hotel= await Hotel.findOne({where:{id:body.hotelId}}).then(sec=>sec.dataValues).catch(err=> res.status(404).send(err))
-    console.log(hotel)
     if(parseInt(body.type)==1)
-    {     console.log(hotel.nb_place_reserver)
+    {    
         const place_disponible=hotel.capacite_chambre_single-hotel.nb_place_reserver_single
         if(place_disponible>0)
         {    hotel.nb_place_reserver_single=hotel.nb_place_reserver_single+1
-             hotel.nb_place_reserver=parseInt(hotel.nb_place_reserver_quadripl)+parseInt(hotel.nb_place_reserver_triple)+parseInt(hotel.nb_place_reserver_double)+parseInt(hotel.nb_place_reserver_single)
+             hotel.nb_place_reserver=parseInt(hotel.nb_place_reserver_quadriple)+parseInt(hotel.nb_place_reserver_triple)+parseInt(hotel.nb_place_reserver_double)+parseInt(hotel.nb_place_reserver_single)
              console.log(hotel.nb_place_reserver)
              let data
             let chambre=await Chambre.create(body).then(async(secc)=>{
@@ -39,7 +38,7 @@ const postchambre=async(req,res)=>
         const place_disponible=hotel.capacite_chambre_double-hotel.nb_place_reserver_double
         if(place_disponible>0)
         {     hotel.nb_place_reserver_double=hotel.nb_place_reserver_double+1
-             hotel.nb_place_reserver=hotel.nb_place_reserver_quadripl+hotel.nb_place_reserver_triple+hotel.nb_place_reserver_double+hotel.nb_place_reserver_single
+             hotel.nb_place_reserver=hotel.nb_place_reserver_quadriple+hotel.nb_place_reserver_triple+hotel.nb_place_reserver_double+hotel.nb_place_reserver_single
             let data
             let chambre=await Chambre.create(body).then(async(secc)=>{
               data=secc.dataValues
@@ -58,7 +57,7 @@ const postchambre=async(req,res)=>
         if(place_disponible>0)
         {
             hotel.nb_place_reserver_triple=hotel.nb_place_reserver_triple+1
-            hotel.nb_place_reserver=hotel.nb_place_reserver_quadripl+hotel.nb_place_reserver_triple+hotel.nb_place_reserver_double+hotel.nb_place_reserver_single
+            hotel.nb_place_reserver=hotel.nb_place_reserver_quadriple+hotel.nb_place_reserver_triple+hotel.nb_place_reserver_double+hotel.nb_place_reserver_single
             let data
             let chambre=await Chambre.create(body).then(async(secc)=>{
               data=secc.dataValues
@@ -77,7 +76,7 @@ const postchambre=async(req,res)=>
         if(place_disponible>0)
         {
             hotel.nb_place_reserver_quadriple=hotel.nb_place_reserver_quadriple+1
-            hotel.nb_place_reserver=hotel.nb_place_reserver_quadripl+hotel.nb_place_reserver_triple+hotel.nb_place_reserver_double+hotel.nb_place_reserver_single
+            hotel.nb_place_reserver=hotel.nb_place_reserver_quadriple+hotel.nb_place_reserver_triple+hotel.nb_place_reserver_double+hotel.nb_place_reserver_single
             let data
             let chambre=await Chambre.create(body).then(async(secc)=>{
               data=secc.dataValues

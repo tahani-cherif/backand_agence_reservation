@@ -11,6 +11,9 @@ module.exports=(Sequelize,DataTypes)=>{
                 msg: 'Please enter your full name'
               }}
         },
+        type:{
+            type:DataTypes.STRING,
+        },
         e_mail:{
             type:DataTypes.STRING,
             validate:{
