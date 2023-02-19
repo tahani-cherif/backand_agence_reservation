@@ -34,12 +34,22 @@ const posthotels=async(req,res)=>
         prix_pension_complete:body.prix_pension_complete,
         prix_all_inclusive:body.prix_all_inclusive,
         prix_all_inclusive_soft:body.prix_all_inclusive_soft,
-        enfant_gratuit:body.enfant_gratuit,
+        prix_petit_dejeuner:body.prix_petit_dejeuner,
+        bebe_gratuit:body.bebe_gratuit,
+        reduction_enfant:body.reduction_enfant,
         commision:body.commision,
+        type_promotion:body.type_promotion,
         date_debut:body.date_debut,
         date_fin:body.date_fin,
+        date_debut_promotion:body.date_debut_promotion,
+        date_fin_promotion:body.date_fin_promotion,
         image_hotel:image,
-        services_equipements:JSON.parse(body.services_equipements)
+        services_equipements:JSON.parse(body.services_equipements),
+        capacite_chambre_quadriple:body.capacite_chambre_quadriple,
+        capacite_chambre_triple:body.capacite_chambre_triple,
+        capacite_chambre_double:body.capacite_chambre_double,
+        capacite_chambre_single:body.capacite_chambre_single
+
       }
 console.log(data)
     let hotel=await Hotel.create(data)
@@ -49,33 +59,9 @@ res.status(200).send(hotel)}
 const gethotel=async(req,res)=>
 {
    let id=req.params.id
-   const hotel=await Hotel.findOne({where:{id:id}})
-   const data={
-    id:hotel.id,
-    nom_hotel:hotel.nom_hotel,
-    e_mail:hotel.e_mail,
-    capacite:hotel.capacite,
-    nb_place_reserver:hotel.nb_place_reserver,
-    numero_telephone:hotel.numero_telephone,
-    adresse:hotel.adresse,
-    nb_etoile:hotel.nb_etoile,
-    porcentage_chambre_triple:hotel.porcentage_chambre_triple,
-    porcentage_chambre_quadruple:hotel.porcentage_chambre_quadruple,
-    frais_chambre_single:hotel.frais_chambre_single,
-    prix_demi_pension:hotel.prix_demi_pension,
-    prix_pension_complete:hotel.prix_pension_complete,
-    prix_all_inclusive:hotel.prix_all_inclusive,
-    prix_all_inclusive_soft:hotel.prix_all_inclusive_soft,
-    enfant_gratuit:hotel.enfant_gratuit,
-    commision:hotel.commision,
-    date_debut:hotel.date_debut,
-    date_fin:hotel.date_fin,
-    services_equipements:hotel.services_equipements,
-    image_hotel:hotel.image_hotel,
-    createdAt:hotel.createdAt,
-    updatedAt:hotel.updatedAt
-  }
-   res.status(200).send(data)
+   console.log("id",id)
+   const hotel=await Hotel.findOne({where:{id:id}}).catch(err=> res.status(404).send(err) )
+   res.status(200).send(hotel)
 }
 
 
@@ -83,37 +69,14 @@ const gethotel=async(req,res)=>
 
 const updatehotel=async(req,res)=>{
     let id=req.params.id
-    const hotel=await Hotel.findOne({where:{id:id}})
+    console.log(id)
+    const hotel=await Hotel.findOne({where:{id:id}}).catch(err=> res.status(404).send(err) )
+    console.log(req.body)
     if(hotel)
-    {
-        await Hotel.update(req.body,{where:{id:id}})
-        const hotel=await Hotel.findOne({where:{id:id}})
-        const data={
-            id:hotel.id,
-            nom_hotel:hotel.nom_hotel,
-            e_mail:hotel.e_mail,
-            capacite:hotel.capacite,
-            nb_place_reserver:hotel.nb_place_reserver,
-            numero_telephone:hotel.numero_telephone,
-            adresse:hotel.adresse,
-            nb_etoile:hotel.nb_etoile,
-            porcentage_chambre_triple:hotel.porcentage_chambre_triple,
-            porcentage_chambre_quadruple:hotel.porcentage_chambre_quadruple,
-            frais_chambre_single:hotel.frais_chambre_single,
-            prix_demi_pension:hotel.prix_demi_pension,
-            prix_pension_complete:hotel.prix_pension_complete,
-            prix_all_inclusive:hotel.prix_all_inclusive,
-            prix_all_inclusive_soft:hotel.prix_all_inclusive_soft,
-            enfant_gratuit:hotel.enfant_gratuit,
-            commision:hotel.commision,
-            date_debut:hotel.date_debut,
-            date_fin:hotel.date_fin,
-            services_equipements:JSON.parse(hotel.services_equipements),
-            image_hotel:JSON.parse(hotel.image_hotel),
-            createdAt:hotel.createdAt,
-            updatedAt:hotel.updatedAt
-          }
-        res.status(200).send(data)
+    {   
+        await Hotel.update(req.body,{where:{id:id}}).catch(err=> res.status(404).send(err) )
+        const hotel2=await Hotel.findOne({where:{id:id}}).catch(err=> res.status(404).send(err) )
+        res.status(200).send(hotel2)
     }else
     {
         res.status(404).send("Hotel not found")

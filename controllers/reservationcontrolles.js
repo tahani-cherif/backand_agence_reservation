@@ -104,5 +104,6 @@ const countreservation=async()=> await reservation.count();
 
 module.exports={
   postresvprogramme,
-  countresevationprogramme
+  countresevationprogramme,
+  getallresv
  }

@@ -62,15 +62,57 @@ module.exports=(Sequelize,DataTypes)=>{
           }
         }
        },
-       nb_place_reserver:{
+       capacite_chambre_single:{
         type:DataTypes.INTEGER,
-        allowNull:true,
-        defaultValue:0,
+        allowNull:false,
         validate:{
           isInt: {
             msg: "Must be an integer number of pennies"
+          },
+          notNull: {
+            msg: 'Please enter your  capacite'
           }
         }
+       },
+       capacite_chambre_double:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        validate:{
+          isInt: {
+            msg: "Must be an integer number of pennies"
+          },
+          notNull: {
+            msg: 'Please enter your  capacite'
+          }
+        }
+       },
+       capacite_chambre_triple:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        validate:{
+          isInt: {
+            msg: "Must be an integer number of pennies"
+          },
+          notNull: {
+            msg: 'Please enter your  capacite'
+          }
+        }
+       },
+       capacite_chambre_quadriple:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        validate:{
+          isInt: {
+            msg: "Must be an integer number of pennies"
+          },
+          notNull: {
+            msg: 'Please enter your  capacite'
+          }
+        }
+       },
+       nb_place_reserver:{
+        type:DataTypes.INTEGER,
+        defaultValue:0,
      },
        porcentage_chambre_triple:{
         type:DataTypes.FLOAT,
@@ -91,74 +133,71 @@ module.exports=(Sequelize,DataTypes)=>{
        },
        frais_chambre_single:{
         type:DataTypes.FLOAT,
-        allowNull:false,
-        validate:{
-          isFloat: {
-            msg: "Must be an float number of pennies"
-          },
-          notNull: {
-            msg: 'Please enter your frais single'
-        }
-        }
-       },
-       prix_demi_pension:{
-        type:DataTypes.FLOAT,
-        allowNull:false,
-        validate:{
-          isFloat: {
-            msg: "Must be an float number of pennies"
-          },
-          notNull: {
-            msg: 'Please enter your prix DP'
-        }
-        }
-       },
-       prix_pension_complete:{
-        type:DataTypes.FLOAT,
-        allowNull:false,
-        validate:{
-          isFloat: {
-            msg: "Must be an float number of pennies"
-          },
-          notNull: {
-            msg: 'Please enter your prix pc'
-        }
-        }
-       },
-       prix_all_inclusive:{
-        type:DataTypes.FLOAT,
-        allowNull:false,
-        validate:{
-          isFloat: {
-            msg: "Must be an float number of pennies"
-          },
-          notNull: {
-            msg: 'Please enter your prix AL'
-        }
-        }
-       },
-       prix_all_inclusive_soft:{
-        type:DataTypes.FLOAT,
-        allowNull:false,
-        validate:{
-          isFloat: {
-            msg: "Must be an float number of pennies"
-          },
-          notNull: {
-            msg: 'Please enter your prix ALs'
-        }
-        }
-       },
-        enfant_gratuit:{
-        type:DataTypes.INTEGER,
-       },
-       commision:{
-        type:DataTypes.FLOAT,
         validate:{
           isFloat: {
             msg: "Must be an float number of pennies"
           }
         }
+       },
+       prix_demi_pension:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          },
+        }
+       },
+       prix_pension_complete:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          },
+        }
+       },
+       prix_all_inclusive:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          },
+        }
+       },
+       prix_all_inclusive_soft:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          },
+        }
+       },
+       prix_all_inclusive_soft:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          },
+        }
+       },
+       prix_petit_dejeuner:{
+        type:DataTypes.FLOAT,
+        validate:{
+          isFloat: {
+            msg: "Must be an float number of pennies"
+          },
+        }
+       },
+       type_promotion:{
+        type:DataTypes.INTEGER,
+       },
+        bebe_gratuit:{
+        type:DataTypes.INTEGER,
+       },
+       reduction_enfant:{
+        type:DataTypes.FLOAT,
+       },
+       commision:{
+        type:DataTypes.FLOAT,
        },
        date_debut:{
         type:DataTypes.DATE,
@@ -178,6 +217,12 @@ module.exports=(Sequelize,DataTypes)=>{
           }
         }
        },
+       date_debut_promotion:{
+        type:DataTypes.DATE,
+       },
+       date_fin_promotion:{
+        type:DataTypes.DATE,
+       },
      
        services_equipements:{
         type:DataTypes.JSON
@@ -185,6 +230,22 @@ module.exports=(Sequelize,DataTypes)=>{
        image_hotel:{
         type:DataTypes.JSON
        },
+       nb_place_reserver_single:{
+        type:DataTypes.INTEGER,
+        defaultValue:0,
+     },
+     nb_place_reserver_double:{
+      type:DataTypes.INTEGER,
+      defaultValue:0,
+   },
+      nb_place_reserver_triple:{
+        type:DataTypes.INTEGER,
+        defaultValue:0,
+    },
+    nb_place_reserver_quadriple:{
+      type:DataTypes.INTEGER,
+      defaultValue:0,
+    },
     })
   return hotel
 }

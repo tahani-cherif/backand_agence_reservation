@@ -4,12 +4,7 @@ module.exports=(Sequelize,DataTypes)=>{
    
     const chambre=Sequelize.define('chambre',{
         type:{
-            type:DataTypes.STRING,
-            allowNull:false,
-            validate:{
-            notNull: {
-                msg: 'Please enter your non avion'
-              }}
+            type:DataTypes.INTEGER,
         },
      nb_place:{
            type:DataTypes.INTEGER,
@@ -50,6 +45,9 @@ module.exports=(Sequelize,DataTypes)=>{
               }
             }
            },
+           nb_nuit:{
+            type:DataTypes.INTEGER
+          },
     });
     return chambre
 }

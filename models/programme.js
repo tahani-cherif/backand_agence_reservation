@@ -49,6 +49,9 @@ module.exports=(Sequelize,DataTypes)=>{
         point_arrive:{
           type:DataTypes.STRING,
       },
+      nb_nuite:{
+        type:DataTypes.INTEGER,
+       },
     });
     return programme
 }

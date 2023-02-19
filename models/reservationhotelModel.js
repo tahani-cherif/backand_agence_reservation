@@ -59,6 +59,9 @@ module.exports=(Sequelize,DataTypes)=>{
            },
         nb_nuit:{
           type:DataTypes.INTEGER
+        },
+        chambre_id:{
+         type: DataTypes.JSON
         }
     });
     return reservation_hotel
