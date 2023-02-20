@@ -14,12 +14,7 @@ module.exports=(Sequelize,DataTypes)=>{
         type:{
             type:DataTypes.STRING,
         },
-        e_mail:{
-            type:DataTypes.STRING,
-            validate:{
-             isEmail : true,}
-            },
-        cin:{
+        numero_passport:{
               type:DataTypes.BIGINT,
               unique: true,
               allowNull:false,
@@ -36,16 +31,7 @@ module.exports=(Sequelize,DataTypes)=>{
             notNull: {
                 msg: 'Please enter your phone number'
             }}
-               },
-        date_naissance:{
-            type:DataTypes.DATE,
-            allowNull:false,
-            validate:{
-             notNull: {
-                msg: 'Please enter your date naissance'
-                }
-                }
-               },
+               }
        
     });
     return client

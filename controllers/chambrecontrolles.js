@@ -14,6 +14,11 @@ const getallchambre=async(req,res)=>
 const postchambre=async(req,res)=>
 {
     const body=req.body
+    let date1= new Date(body.date_fin);
+    let date2 = new Date(body.date_debut)
+    let time_diff = date1.getTime() - date2.getTime();
+    const days_Diff = time_diff / (1000 * 3600 * 24);
+    body.nb_nuit=days_Diff
     const hotel= await Hotel.findOne({where:{id:body.hotelId}}).then(sec=>sec.dataValues).catch(err=> res.status(404).send(err))
     if(parseInt(body.type)==1)
     {    

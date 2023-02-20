@@ -6,6 +6,15 @@ module.exports=(Sequelize,DataTypes)=>{
         type:{
             type:DataTypes.INTEGER,
         },
+        type_logmenet:{
+          type:DataTypes.STRING,
+         },
+        bebe:{
+          type:DataTypes.INTEGER,
+        },
+        type_personne:{
+          type:DataTypes.JSON
+        },
      nb_place:{
            type:DataTypes.INTEGER,
            allowNull:false,
