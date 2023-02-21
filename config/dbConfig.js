@@ -2,7 +2,7 @@ require('dotenv').config()
 module.exports={
     HOST:process.env.DB_HOST,
     USER:process.env.DB_USER,
-    PASSWORD:process.env.DB_PASSWORD,
+    PASSWORD:process.env.BD_PASS,
     DB:process.env.MYSQL_DB,
     dialect:"mysql",
     pool:{
