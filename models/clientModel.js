@@ -14,24 +14,9 @@ module.exports=(Sequelize,DataTypes)=>{
         type:{
             type:DataTypes.STRING,
         },
-        numero_passport:{
-              type:DataTypes.BIGINT,
-              unique: true,
-              allowNull:false,
-              validate:{
-                notNull: {
-                   msg: 'Please enter your date naissance'
-                   }
-                   }
-            },
-        numero_telephone : {
-            type:DataTypes.BIGINT,
-             allowNull:false,
-            validate:{
-            notNull: {
-                msg: 'Please enter your phone number'
-            }}
-               }
+        age : {
+            type:DataTypes.INTEGER,
+              }
        
     });
     return client
