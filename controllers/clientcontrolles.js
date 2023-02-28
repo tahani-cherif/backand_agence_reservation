@@ -12,8 +12,10 @@ const getallclient=async(req,res)=>
 const postclient=async(req,res)=>
 {
     const body=req.body
-    let client=await Client.create(body).catch(err=>res.status(404).send(err))
-    res.status(200).send(client)
+    body.map(async(item)=>{
+     let client=await Client.create(item).catch(err=>res.status(404).send(err))
+    })
+   setTimeout(()=>  res.status(200).send({message:'tous les client ajouter avec sucee'}),1000)
 }
 
 const updateclient=async(req,res)=>
