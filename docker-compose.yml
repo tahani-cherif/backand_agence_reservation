@@ -15,6 +15,24 @@ services:
     networks:
       - app-network
 
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_password
+      MYSQL_DATABASE: your_database
+      MYSQL_USER: your_username
+      MYSQL_PASSWORD: your_password
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - ./db_data:/var/lib/mysql
+    networks:
+      - app-network
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
@@ -22,21 +40,11 @@ services:
       PMA_HOST: mysql
       PMA_USER: root
       PMA_PASSWORD: your_password
+      PMA_DB_NAME: your_database
     ports:
-      - 8080:80
+      - 8099:80
     depends_on:
       - mysql
-    networks:
-      - app-network
-
-  mysql:
-    image: mysql:8
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: your_password
-    volumes:
-      - ./db_data:/var/lib/mysql
     networks:
       - app-network
 
@@ -52,7 +60,6 @@ services:
       - node
     networks:
       - app-network
-
 networks:
   app-network:
     driver: bridge
