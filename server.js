@@ -64,7 +64,7 @@ app.use('/image', express.static('./image'))
 
 //test
 app.get('/',(req,res)=>{
-    res.json({message:'hello from api'})
+    res.json({message:'hello from new api  ed'})
 })
 
 //port
